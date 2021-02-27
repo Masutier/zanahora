@@ -1,0 +1,11 @@
+{% load static %}
+
+<div class="container-fluid ">
+    <h3 class="c">Categorías</h3>
+    {% for obj in categorias %}
+        <div class=" cateall">
+            <a class="txtcat" href="{% url 'prod_by_category' obj %}"><h6>{{obj}}</h6></a>
+        </div>
+    {% endfor %}
+</div>    
+

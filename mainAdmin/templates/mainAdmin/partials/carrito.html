@@ -1,0 +1,10 @@
+{% load static %}
+    {% if user.is_authenticated %}
+    <!-- Carrito -->
+    <div class="row  ml-3 mr-2">
+        <a class="carrito" href="{% url 'cart' %}">
+            <img src="{% static '/img/icons/costal.png' %}" class="carrito" />
+        </a>
+        <p id="cartitotal">{{cartItems}}</p>
+    </div>
+    {% endif %}

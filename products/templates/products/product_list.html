@@ -1,0 +1,19 @@
+
+<h1 class="col-md-8 pt-4 mx-auto c">Lista de Productos</h1>
+<div class="col-md-12 mx-auto ">
+    <div class="row">
+        <div class="col-md-11 mx-auto ">
+            <div class='row'>
+                {% for product in products %}
+                    {% include 'products/partials/product_card.html' with instance=product %}
+                {% endfor %}
+            </div>
+            <div class="col-md-8 mx-auto mt-3">
+                {% if totalProducts > 12 %}
+                    {% include 'products/partials/pagination.html' %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
