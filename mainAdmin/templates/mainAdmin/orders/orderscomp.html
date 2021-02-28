@@ -1,0 +1,116 @@
+
+<table class="table table-sm">
+    <tr>
+    <strong>
+        <th>Orden</th>
+        <th>transaction_id</th>
+        <th>Cliente</th>
+        <th>Tel</th>
+        <th>Estado</th>
+        <th>Fecha</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </strong>
+    </tr>
+    <tr>
+        <td>{{objs.id}}</td>
+        <td>{{objs.transaction_id}}</td>
+        <td>{{objs.customer}}</td>
+        <td>{{objs.customer.phoneNum}}</td>
+        <td>{{objs.status}}</td>
+        <td>{{objs.date_modify}}</td>
+        <td></td>
+        <td><a href="{% url 'update_order' objs.id %}" class="btn btn-info btn-sm">Modificar</a></td>
+        <td><a href="{% url 'update_order_stat' objs.id %}" class="btn btn-warning btn-sm">Status</td>
+        <td><a href="{% url 'oc_reparto_PDF' objs.id %}" class="btn btn-dark btn-sm">Ver PDF</td>
+        <td><a href="{% url 'oc_reparto_DownloadPDF' objs.id %}" class="btn btn-dark btn-sm">Baja PDF</td>
+    </tr>
+    <tr>
+        <th></th>
+        <th>Dirección</th>
+        <th>barrio</th>
+        <th>Ciudad / Vereda</th>
+        <th>Departamento</th>
+        <th>País</th>
+        <th>Código Postal</th>
+    </tr>
+
+        <tr>
+            <td></td>
+            <td>{{objs.address}}</td>
+            <td>{{objs.barrio}}</td>
+            <td>{{objs.city}}</td>
+            <td>{{objs.state}}</td>
+            <td>{{objs.country}}</td>
+            <td>{{objs.zipcode}}</td>
+        </tr>
+
+    <tr>
+        <th></th>
+        <th>Producto</th>
+        <th>Presentación</th>
+        <th>Cant</th>
+        <th>Precio</th>
+        <th>Total</th>
+    </tr>
+    {% for obj in objs.orderitem_set.all %}
+        <tr>
+            <td></td>
+            <td>{{obj.product.name}}</td>
+            <td>{{obj.product.presenta}}</td>
+            <td>{{obj.quantity}}</td>
+            <td>${{obj.itemPrice}}</td>
+            <td>${{obj.hist_get_total}}</td>
+        </tr>
+    {% endfor %}
+    <tr>
+        <td></td>
+        <td></td>
+        <td><h6>Numero de productos: </h6></td>
+        <td><strong>{{objs.get_cart_items}}</strong></td>
+        <td><h6>Sub Total del Canasto: </h6></td>
+        <td><strong>${{objs.hist_order_subtotal}}</strong></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td>Domicilio</td>
+        <td></td>
+        <td></td>
+        <td>$5000</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><h6>Total del Canasto: </h6></td>
+        <td><strong>${{objs.hist_order_total}}</strong></td>
+    </tr>
+
+    <tr>
+        <th></th>
+        <th>Repartidor</th>
+        <th>Doc Identidad</th>
+        <th>Teléfono</th>
+    </tr>
+    <tr>
+        <td></td>
+        <td>{{objs.repartidor.name}}</td>
+        <td>{{objs.repartidor.cedulaId}}</td>
+        <td>{{objs.repartidor.phoneNum}}</td>
+    </tr>
+    <tr>
+        <th></th>
+        <th>Notas</th>
+    </tr>
+    <tr>
+        <td></td>
+        <td>{{objs.note}}</td>
+    </tr>
+    <tr>
+        <th>*</th>
+    </tr>
+</table>

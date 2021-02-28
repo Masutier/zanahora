@@ -19,7 +19,6 @@ from .models import Order, OrderItem
 from products.models import Product, Estilo, Natural
 from projects.models import Project
 
-from .utils import render_to_pdf
 from products.utils import category
 from projects.utils import project
 from users.utils import cartData
@@ -392,8 +391,6 @@ def simpleOrders(request):
 
 
 
-
-
 # ORDERS ADMIN
 
 @login_required(login_url='login')
@@ -594,96 +591,26 @@ def ordersDeepSearch(request):
     return render(request, 'mainAdmin/orders/orders_deep.html', context)
 
 
-
-
-
-
-
-
-
-# PDF
 @login_required(login_url='login')
-def ocRepartoPDF(request, pk):
-    products = Product.objects.all()
-
+def confirmaEntrega(request, pk):
+    customer = request.user.customer
     order = Order.objects.get(id=pk)
+
     form = OrderForm(instance=order)
     if request.method == 'POST':
         form = OrderForm(request.POST, instance=order)
         if form.is_valid():
             form.save()
-            return redirect('admin_home')
+            order.status = "Entrega Confirmada"
+            order.save()
+            return redirect('rep_user_ordens_assign')
 
-    context = {'form': form, 'order':order, 'products': products}
+    # index del canasto
+    if request.user.is_authenticated:
+        data = cartData(request)
+        cartItems = data['cartItems']
+    else:
+        cartItems = 0
 
-    pdf = render_to_pdf('mainAdmin/pdf/oc_reparto_PDF.html', context)
-    return HttpResponse(pdf, content_type='application/pdf')
-
-
-@login_required(login_url='login')
-def ocRepartoDownloadPDF(request, pk):
-    products = Product.objects.all()
-
-    order = Order.objects.get(id=pk)
-    form = OrderForm(instance=order)
-    if request.method == 'POST':
-        form = OrderForm(request.POST, instance=order)
-        if form.is_valid():
-            form.save()
-            return redirect('admin_home')
-
-    context = {'form': form, 'order':order, 'products': products}
-
-    pdf = render_to_pdf('mainAdmin/pdf/oc_reparto_PDF.html', context)
-
-    response = HttpResponse(pdf, content_type='application/pdf')
-    filename = 'ZanaHora_Orden:%s.pdf' %(order.id)
-    content = "attachment; filename='%s'" %(filename)
-    response['Content-Disposition'] = content
-    return response
-
-
-@login_required(login_url='login')
-@admin_only
-def ordenCompraPDF(request):
-    products = Product.objects.all()
-    orders_all = Order.objects.all()
-
-    pending_orders = orders_all.filter(status='Pendiente')
-    pending = pending_orders.count()
-
-    proyectos = []
-    for product in products:
-        if product.proyect not in proyectos:
-            proyectos.append(product.proyect)
-
-    context = {'pending': pending, 'pending_orders': pending_orders, 'proyectos': proyectos, 'products': products,}
-
-    pdf = render_to_pdf('mainAdmin/pdf/oc_all_PDF.html', context)
-    return HttpResponse(pdf, content_type='application/pdf')
-
-
-@login_required(login_url='login')
-@admin_only
-def ordenCompraDownloadPDF(request):
-    x = datetime.datetime.now()
-    products = Product.objects.all()
-    orders_all = Order.objects.all()
-
-    pending_orders = orders_all.filter(status='Pendiente')
-    pending = pending_orders.count()
-
-    proyectos = []
-    for product in products:
-        if product.proyect not in proyectos:
-            proyectos.append(product.proyect)
-
-    context = {'pending': pending, 'pending_orders': pending_orders, 'proyectos': proyectos, 'products': products,}
-
-    pdf = render_to_pdf('mainAdmin/pdf/oc_all_PDF.html', context)
-
-    response = HttpResponse(pdf, content_type='application/pdf')
-    filename = 'OC_all_%s.pdf' %x
-    content = "attachment; filename='%s'" %(filename)
-    response['Content-Disposition'] = content
-    return response
+    context = {'form': form, 'order': order, 'cartItems': cartItems}
+    return render(request, 'orders/delivery_confirm.html', context)

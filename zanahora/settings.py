@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = 'xh$vf)h2kear1trsrsfnw9ld8dmiv7d7%5!-7nq26_1%#k!i7*'
@@ -96,8 +95,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, "/media/")
+MEDIA_URL = ''
+MEDIA_ROOT = os.path.join(BASE_DIR, "")
 
 SESSION_COOKIE_AGE = 21600
 SESSION_COOKIE_SAMESITE = None

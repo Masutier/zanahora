@@ -15,6 +15,7 @@ from products.models import Product, Estilo, Natural
 from projects.models import Project
 from users.models import Customer
 
+from .utils import render_to_pdf
 from products.utils import category
 from projects.utils import project
 from users.utils import cartData
@@ -103,7 +104,6 @@ def adminHome(request):
 
 
 # PRODUCTS
-
 @login_required(login_url='login')
 @admin_only
 def productsCateg(request):
@@ -195,3 +195,237 @@ def inventoryProduct(request):
     return render(request, 'mainAdmin/products/prod_invent.html', context)
 
 
+# PROJECTS
+@login_required(login_url='login')
+@admin_only
+def projects(request):
+    projects = Project.objects.all()
+
+    total_projects = projects.count()
+    apply = projects.filter(status='Apply').count()
+    aproved = projects.filter(status='Aproved').count()
+    void = projects.filter(status='Void').count()
+    delete = projects.filter(status='Delete').count()
+
+    # categorias
+    categ = category(request)
+    categorias = categ['categorias']
+    # prodyectos
+    proye = project(request)
+    projectos = proye['projectos']
+    # natural
+    natural = Natural.objects.all()
+    # estilo
+    estilo = Estilo.objects.all()
+    # index del canasto
+    if request.user.is_authenticated:
+        data = cartData(request)
+        cartItems = data['cartItems']
+    else:
+        cartItems = 0
+    
+    context = {'projects': projects, "categorias": categorias, 'total_projects': total_projects,
+        'apply': apply, 'aproved': aproved, 'void': void, 'delete': delete,
+        'cartItems': cartItems, 'projectos': projectos, 'natural': natural, 'estilo': estilo}
+    return render(request, 'mainAdmin/projects/projects.html', context)
+
+
+# PEDIDOS
+@login_required(login_url='login')
+@admin_only
+def listaPedidos(request):
+    products = Product.objects.all()
+    orders_all = Order.objects.all()
+
+    # orders
+    pending_orders = orders_all.filter(status='Pendiente')
+    pending = pending_orders.count()
+
+    orders = []
+    ordEstado = []
+    for obj in pending_orders:
+        orders.append(obj)
+    # status
+        if obj.status not in ordEstado:
+            ordEstado.append(obj.status)
+
+    # categorias
+    categ = category(request)
+    categorias = categ['categorias']
+    # prodyectos
+    proye = project(request)
+    projectos = proye['projectos']
+    # natural
+    natural = Natural.objects.all()
+    # estilo
+    estilo = Estilo.objects.all()
+    # index del canasto
+    if request.user.is_authenticated:
+        data = cartData(request)
+        cartItems = data['cartItems']
+    else:
+        cartItems = 0
+
+    context = {'orders': orders, 'projectos': projectos, 'cartItems': cartItems, 'products': products, 'ordEstado': ordEstado,
+         'pending_orders': pending_orders, 'pending': pending,}
+    return render(request, 'mainAdmin/products/lista_pedidos.html', context)
+
+
+# VENTAS
+@login_required(login_url='login')
+@admin_only
+def ventasDetail(request):
+    orders_all = Order.objects.all()
+    all_orders = orders_all.filter(complete=True)
+    grand_cost_total = 0
+    grand_total_tot = 0
+    for order in all_orders:
+        grand_cost_total += int(order.get_cost_subtotal)
+        grand_total_tot += int(order.hist_order_subtotal)
+    
+    profit = int(grand_total_tot) - int(grand_cost_total)
+
+    # orders 
+    payment_orders = orders_all.filter(status='En Aprobación', complete=True)
+    payment = payment_orders.count()
+    payment_cost_tot = 0
+    payment_total_tot = 0
+    for order in payment_orders:
+        payment_cost_tot += int(order.get_cost_subtotal)
+        payment_total_tot += int(order.hist_order_subtotal)
+    
+    payment_done = orders_all.filter(status='Pago Realizado')
+    pay = payment_done.count()
+    pay_cost_tot = 0
+    pay_total_tot = 0
+    for order in payment_done:
+        pay_cost_tot += int(order.get_cost_subtotal)
+        pay_total_tot += int(order.hist_order_subtotal)
+    
+    pending_orders = orders_all.filter(status='Pendiente')
+    pending = pending_orders.count()
+    pend_cost_tot = 0
+    pend_total_tot = 0
+    for order in pending_orders:
+        pend_cost_tot += int(order.get_cost_subtotal)
+        pend_total_tot += int(order.hist_order_subtotal)
+    
+    indelivery_orders = orders_all.filter(status='En Ruta')
+    indelivery = indelivery_orders.count()
+    indel_cost_tot = 0
+    indel_total_tot = 0
+    for order in indelivery_orders:
+        indel_cost_tot += int(order.get_cost_subtotal)
+        indel_total_tot += int(order.hist_order_subtotal)
+    
+    delivered_orders = orders_all.filter(status='Entregado')
+    delivered = delivered_orders.count()
+    deliv_cost_tot = 0
+    deliv_total_tot = 0
+    for order in delivered_orders:
+        deliv_cost_tot += int(order.get_cost_subtotal)
+        deliv_total_tot += int(order.hist_order_subtotal)
+
+    # index del canasto
+    if request.user.is_authenticated:
+        data = cartData(request)
+        cartItems = data['cartItems']
+    else:
+        cartItems = 0
+
+    context = {'cartItems': cartItems, 'grand_cost_total': grand_cost_total, 'grand_total_tot': grand_total_tot, 'profit': profit,
+        'payment_orders': payment_orders, 'payment': payment, 'payment_cost_tot': payment_cost_tot, 'payment_total_tot': payment_total_tot,
+        'payment_done': payment_done, 'pay': pay, 'pay_cost_tot': pay_cost_tot, 'pay_total_tot': pay_total_tot,
+        'pending_orders': pending_orders, 'pending': pending, 'pend_cost_tot': pend_cost_tot, 'pend_total_tot': pend_total_tot,
+        'indelivery_orders': indelivery_orders, 'indelivery': indelivery, 'indel_cost_tot': indel_cost_tot, 'indel_total_tot': indel_total_tot,
+        'delivered_orders': delivered_orders, 'delivered': delivered, 'deliv_cost_tot': deliv_cost_tot, 'deliv_total_tot': deliv_total_tot,
+    }
+    return render(request, 'mainAdmin/ventas/ventas_all.html', context)
+
+
+# PDF
+@login_required(login_url='login')
+def ocRepartoPDF(request, pk):
+    products = Product.objects.all()
+
+    order = Order.objects.get(id=pk)
+    form = OrderForm(instance=order)
+    if request.method == 'POST':
+        form = OrderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_home')
+
+    context = {'form': form, 'order':order, 'products': products}
+
+    pdf = render_to_pdf('mainAdmin/pdf/oc_reparto_PDF.html', context)
+    return HttpResponse(pdf, content_type='application/pdf')
+
+
+@login_required(login_url='login')
+def ocRepartoDownloadPDF(request, pk):
+    products = Product.objects.all()
+
+    order = Order.objects.get(id=pk)
+    form = OrderForm(instance=order)
+    if request.method == 'POST':
+        form = OrderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_home')
+
+    context = {'form': form, 'order':order, 'products': products}
+
+    pdf = render_to_pdf('mainAdmin/pdf/oc_reparto_PDF.html', context)
+
+    response = HttpResponse(pdf, content_type='application/pdf')
+    filename = 'ZanaHora_Orden:%s.pdf' %(order.id)
+    content = "attachment; filename='%s'" %(filename)
+    response['Content-Disposition'] = content
+    return response
+
+
+@login_required(login_url='login')
+@admin_only
+def ordenCompraPDF(request):
+    products = Product.objects.all()
+    orders_all = Order.objects.all()
+
+    pending_orders = orders_all.filter(status='Pendiente')
+    pending = pending_orders.count()
+
+    projectos = []
+    for product in products:
+        if product.project not in projectos:
+            projectos.append(product.project)
+
+    context = {'pending': pending, 'pending_orders': pending_orders, 'projectos': projectos, 'products': products,}
+
+    pdf = render_to_pdf('mainAdmin/pdf/oc_all_PDF.html', context)
+    return HttpResponse(pdf, content_type='application/pdf')
+
+
+@login_required(login_url='login')
+@admin_only
+def ordenCompraDownloadPDF(request):
+    x = datetime.datetime.now()
+    products = Product.objects.all()
+    orders_all = Order.objects.all()
+
+    pending_orders = orders_all.filter(status='Pendiente')
+    pending = pending_orders.count()
+
+    projectos = []
+    for product in products:
+        if product.project not in projectos:
+            projectos.append(product.project)
+
+    context = {'pending': pending, 'pending_orders': pending_orders, 'projectos': projectos, 'products': products,}
+
+    pdf = render_to_pdf('mainAdmin/pdf/oc_all_PDF.html', context)
+
+    response = HttpResponse(pdf, content_type='application/pdf')
+    filename = 'OC_all_%s.pdf' %x
+    content = "attachment; filename='%s'" %(filename)
+    response['Content-Disposition'] = content
+    return response

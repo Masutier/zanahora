@@ -1,0 +1,24 @@
+{% extends 'zanamain/main.html' %}
+{% block content %}
+
+<div class="col-md-12 mt-4 mx-auto">
+    <div class="col-md-10 mx-auto">
+        <h1 class="card-title titelall c">Ordenes {{ordTitle}}</h1>
+
+        <div class="row">
+            <div class="card-title mr-auto mt-4 subtitelall"><h5>{{ordTitle}}</h5></div>
+            <div class="card-title mt-4 subtitelall">Ordenes Listadas {{orderCount}}</div>
+        </div>
+
+        <div class="card card-body">
+            <table class="table table-sm">
+                {% include 'mainAdmin/dashboard/dashboardcomp1.html' %}
+                {% for order in ordersDetail %}
+                    {% include 'mainAdmin/dashboard/dashboardcomp2.html' %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

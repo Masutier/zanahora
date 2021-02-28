@@ -1,0 +1,104 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="col-md-12 mx-auto">
+    <div class="row">
+        <div class="col-md-2 mt-4">
+            <h3 class="card-title titelall c">Ordenes</h3>
+            {% for obj in ordEstado %}
+                <ul  class="list-group mx-auto">
+                    <li class="list-group categall c">
+                        <a class="txtcat" href="#{{obj}}"><h6>{{obj}}</h6></a>
+                    </li>
+                </ul>
+            {% endfor %}
+
+        </div>
+
+        <br>
+
+        <div class="col-md-10 mt-2 mx-auto">
+            <h1 class="card-title titelall c">Ordenes</h1>
+            {% include 'mainAdmin/dashboard/order_resum.html' %}
+
+            <div class="card card-body mt-2">
+                <h1 class="col-md-8 mx-auto c">Lista Detallada de Ordenes</h1>
+            </div>
+
+            {% if payment_orders %}
+                <a id="En Aprobación"></a>
+                <h5 class="card-title mt-4 subtitelall">Ordenes En Aprobación</h5>
+                <div class="card card-body">
+                    {% for objs in payment_orders %}
+                        {% include 'mainAdmin/orders/orderscomp.html' %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if payment_done %}
+                <a id="Pago Realizado"></a>
+                <h5 class="card-title mt-4 subtitelall">Ordenes En Confirmación de Pago</h5>
+                <div class="card card-body">
+                    {% for objs in payment_done %}
+                        {% include 'mainAdmin/orders/orderscomp.html' %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if pending_orders %}
+                <a id="Pendiente"></a>
+                <h5 class="card-title mt-4 subtitelall">Ordenes Pendientes para Repartición</h5>
+                <div class="card card-body">
+                    {% for objs in pending_orders %}
+                        {% include 'mainAdmin/orders/orderscomp.html' %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if indelivery_orders %}
+                <a id="En Ruta"></a>
+                <h5 class="card-title mt-4 subtitelall">Ordenes en Ruta</h5>
+                <div class="card card-body">
+                    {% for objs in indelivery_orders %}
+                        {% include 'mainAdmin/orders/orderscomp.html' %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if indelconf_orders %}
+                <a id="Entregado"></a>
+                <h5 class="card-title mt-4 subtitelall">Ordenes Entregada Confirmada</h5>
+                <div class="card card-body">
+                    {% for objs in indelconf_orders %}
+                        {% include 'mainAdmin/orders/orderscomp.html' %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if delivered_orders %}
+                <a id="Entregado"></a>
+                <h5 class="card-title mt-4 subtitelall">Ordenes Entregadas</h5>
+                <div class="card card-body">
+                    {% for objs in delivered_orders %}
+                        {% include 'mainAdmin/orders/orderscomp.html' %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if rejected_orders %}
+                <a id="Rechazado"></a>
+                <h5 class="card-title mt-4 subtitelall">Ordenes Rechazadas</h5>
+                <div class="card card-body">
+                    {% for objs in rejected_orders %}
+                        {% include 'mainAdmin/orders/orderscomp.html' %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <br>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

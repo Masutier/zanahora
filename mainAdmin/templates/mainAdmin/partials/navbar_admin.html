@@ -7,7 +7,7 @@
 
     <div class="collapse navbar-collapse navpadadm zztopadm" id="navbarNav2">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link" href="{% url 'admin_home' %}">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'adminHome' %}">Dashboard</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'projects' %}">Proyectos</a></li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -40,10 +40,8 @@
                     <a class="dropdown-item" href="{% url 'orders_deep' %}">Ordenes Deep Search</a>
                 </div>
             </li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'repartidor' %}">Repartidores</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'ventas_detail' %}">Ventas</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'test' %}">Test</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'test1' %}">Test1</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'ventas_all' %}">Ventas</a></li>
+
         </ul>
         <ul class="navbar-nav mt-2 mt-lg-0">
             <li class="nav-item navtext"><a class="nav-link" href="{% url 'user_page' %}">Administrador <strong>{{user.first_name}}</strong></a></li>
