@@ -1,10 +1,11 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
 
-from products.models import Product, Estilo
+from products.models import Product, Natural
 from projects.models import Project
+from users.models import Estilo
 
-from products.utils import category, Natural
+from products.utils import category
 from projects.utils import project
 from users.utils import cartData
 
@@ -55,6 +56,128 @@ def home(request):
     context = {'cartItems': cartItems, 'products': products, 'projectos': projectos, 'categorias': categorias, 'natural': natural, "estilo": estilo,
     'page_range1': page_range1, 'totalProducts': totalProducts}
     return render(request, 'zanamain/zanahora.html', context)
+
+
+# INFORMACION
+def agroecologia (request):
+    products = Product.objects.all()
+
+    # categorias
+    categ = category(request)
+    categorias = categ['categorias']
+    # prodyectos
+    proye = project(request)
+    projectos = proye['projectos']
+    # natural
+    natural = Natural.objects.all()
+    # estilo
+    estilo = Estilo.objects.all()
+    # index del canasto
+    if request.user.is_authenticated:
+        data = cartData(request)
+        cartItems = data['cartItems']
+    else:
+        cartItems = 0
+
+    context = {'cartItems': cartItems, 'products': products, 'projectos': projectos, 'categorias': categorias, 'natural': natural, 'estilo': estilo}
+    return render(request, 'zanamain/info/info_agroecol.html', context)
+
+
+def infoEntregas (request):
+    products = Product.objects.all()
+
+    # categorias
+    categ = category(request)
+    categorias = categ['categorias']
+    # prodyectos
+    proye = project(request)
+    projectos = proye['projectos']
+    # natural
+    natural = Natural.objects.all()
+    # estilo
+    estilo = Estilo.objects.all()
+    # index del canasto
+    if request.user.is_authenticated:
+        data = cartData(request)
+        cartItems = data['cartItems']
+    else:
+        cartItems = 0
+
+    context = {'cartItems': cartItems, 'products': products, 'projectos': projectos, 'categorias': categorias, 'natural': natural, 'estilo': estilo}
+    return render(request, 'zanamain/info/info_entregas.html', context)
+
+
+def informacionIconos (request):
+    projects = Project.objects.all()
+    products = Product.objects.all()
+
+    # categorias
+    categ = category(request)
+    categorias = categ['categorias']
+    # prodyectos
+    proye = project(request)
+    projectos = proye['projectos']
+    # natural
+    natural = Natural.objects.all()
+    # estilo
+    estilo = Estilo.objects.all()
+    # index del canasto
+    if request.user.is_authenticated:
+        data = cartData(request)
+        cartItems = data['cartItems']
+    else:
+        cartItems = 0
+
+    context = {'cartItems': cartItems, 'products': products, 'projectos': projectos, 'categorias': categorias, 'natural': natural, 'estilo': estilo}
+    return render(request, 'zanamain/info/info_icons.html', context)
+
+
+def informacionConditions (request):
+    products = Product.objects.all()
+
+    # categorias
+    categ = category(request)
+    categorias = categ['categorias']
+    # prodyectos
+    proye = project(request)
+    projectos = proye['projectos']
+    # natural
+    natural = Natural.objects.all()
+    # estilo
+    estilo = Estilo.objects.all()
+    # index del canasto
+    if request.user.is_authenticated:
+        data = cartData(request)
+        cartItems = data['cartItems']
+    else:
+        cartItems = 0
+
+    context = {'cartItems': cartItems, 'products': products, 'projectos': projectos, 'categorias': categorias, 'natural': natural, 'estilo': estilo}
+    return render(request, 'zanamain/info/info_conditions.html', context)
+
+
+def informacionPrivacy (request):
+    products = Product.objects.all()
+
+    # categorias
+    categ = category(request)
+    categorias = categ['categorias']
+    # prodyectos
+    proye = project(request)
+    projectos = proye['projectos']
+    # natural
+    natural = Natural.objects.all()
+    # estilo
+    estilo = Estilo.objects.all()
+    # index del canasto
+    if request.user.is_authenticated:
+        data = cartData(request)
+        cartItems = data['cartItems']
+    else:
+        cartItems = 0
+
+    context = {'cartItems': cartItems, 'products': products, 'projectos': projectos, 'categorias': categorias, 'natural': natural, 'estilo': estilo}
+    return render(request, 'zanamain/info/info_privacy.html', context)
 
 
 

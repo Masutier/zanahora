@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -5,12 +6,13 @@ from users.decorators import unauthenticated_user, allowed_users, admin_only
 
 from .forms import CreateProjectForm
 
-from .models import Project
-from products.models import Product
+from .models import Project, Video
+from products.models import Product, Natural
+from users.models import Estilo
 
-from .utils import project, Videos
-from products.utils import category, Natural
-from users.utils import Estilo, cartData
+from .utils import project
+from products.utils import category
+from users.utils import cartData
 
 
 def projectsAll(request):
@@ -56,7 +58,7 @@ def projectsAll(request):
 
 def project_detail(request, id):
     obj = get_object_or_404(Project, id=id)
-    videos = Videos.filter(project=id)
+    videos = Video.filter(project=id)
     products_all = Product.objects.all()
     products = products_all.filter(project=id)
 

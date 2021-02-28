@@ -1,4 +1,5 @@
 import datetime
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
@@ -10,12 +11,11 @@ from users.decorators import unauthenticated_user, allowed_users, admin_only
 from orders.forms import OrderForm
 
 from orders.models import Order
-from products.models import Product, Estilo
+from products.models import Product, Estilo, Natural
 from projects.models import Project
 from users.models import Customer
 
-from .utils import render_to_pdf
-from products.utils import category, Natural
+from products.utils import category
 from projects.utils import project
 from users.utils import cartData
 
@@ -193,3 +193,5 @@ def inventoryProduct(request):
 
     context = {'cartItems': cartItems, 'prodAproveNoPerece': prodAproveNoPerece,}
     return render(request, 'mainAdmin/products/prod_invent.html', context)
+
+

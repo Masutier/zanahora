@@ -14,7 +14,7 @@ urlpatterns = [
     path('', include('mainAdmin.urls')),
     path('', include('orders.urls')),
     path('', include('products.urls')),
-    path('', include('prjects.urls')),
+    path('', include('projects.urls')),
     path('', include('users.urls')),
     path('', include('zanamain.urls')),
 ]
