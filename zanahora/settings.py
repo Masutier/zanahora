@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'products',
     'projects',
     'users',
+    'zanamain',
 ]
 
 MIDDLEWARE = [

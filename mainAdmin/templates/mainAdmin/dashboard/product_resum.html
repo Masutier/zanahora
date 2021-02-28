@@ -1,0 +1,76 @@
+{% load static %}
+<div class="row">
+    <div class="col">
+        <div class="col-md">
+            <div class="card mb-1 c" id="total-orders">
+                <div class="card-header">
+                    <h6 class="card-title">Total</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{total_products}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <a class="a_jump" href="#Apply">
+        <div class="col-md">
+            <div class="card mb-1 c" id="orders-payment">
+                <div class="card-header">
+                    <h6 class="card-title">Aplicando</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{apply}}</h4>
+                </div>
+            </div>
+        </div>
+        </a>
+    </div>
+
+    <div class="col">
+        <a class="a_jump" href="#Aproved">
+        <div class="col-md">
+            <div class="card mb-1 c" id="orders-pending">
+                <div class="card-header">
+                    <h6 class="card-title">Aprovados</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{aproved}}</h4>
+                </div>
+            </div>
+        </div>
+        </a>
+    </div>
+
+    <div class="col">
+        <a class="a_jump" href="#Void">
+        <div class="col-md">
+            <div class="card mb-1 c" id="orders-in-deliver">
+                <div class="card-header">
+                    <h6 class="card-title">Anulados</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{void}}</h4>
+                </div>
+            </div>
+        </div>
+        </a>
+    </div>
+
+    <div class="col">
+        <a class="a_jump" href="#Delete">
+        <div class="col-md">
+            <div class="card mb-1 c" id="orders-delivered">
+                <div class="card-header">
+                    <h6 class="card-title">Borrados</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{delete}}</h4>
+                </div>
+            </div>
+        </div>
+        </a>
+    </div>
+
+</div>

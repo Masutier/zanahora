@@ -1,4 +1,4 @@
-{% extends 'mainAdmin/main.html' %}
+{% extends 'zanamain/main.html' %}
 {% load static %}
 {% block content %}
 
@@ -12,7 +12,7 @@
             </div>
             <hr class="hr">
             <h3 class="card-title titelall c">Proyectos</h3>
-            {% for obj in proyectos %}
+            {% for obj in projectos %}
                 <ul  class="list-group mx-auto">
                     <li class="list-group categall c">
                         <a class="txtcat" href="#{{obj}}"><h6>{{obj}}</h6></a>
@@ -20,10 +20,10 @@
                 </ul>
             {% endfor %}
             <hr class="hr">
-            {% include 'accounts/info/info_natural.html' %}
+            {% include 'products/info/info_natural.html' %}
             <a class="btn btn-info btn-sm btn-block" href="{% url 'info_icons' %}">Más Información</a>
             <hr class="hr">
-            {% include 'accounts/info/info_estilo.html' %}
+            {% include 'users/info/info_estilo.html' %}
             <a class="btn btn-info btn-sm btn-block" href="{% url 'info_icons' %}">Más Información</a>
         </div>
 
@@ -31,13 +31,13 @@
 
         <div class="col-md-10 mx-auto">
             <h1 class="card-title titelall c">Productos por Proyecto</h1>
-            {% include 'accounts/administracion/dashboard/product_resum.html' %}
+            {% include 'mainAdmin/dashboard/product_resum.html' %}
 
             <div class="card card-body">
                 <h1 class="col-md-8 mx-auto c">Lista de Productos</h1>
             </div>
 
-            {% for item in proyectos %}
+            {% for item in projectos %}
             <div class="row">
                 <div class="mr-auto" id='{{item}}'><h2>{{item}}</h2></div>
             </div>
@@ -46,10 +46,10 @@
                 <div class="card card-body">
 
                     <table class="table table-sm">
-                        {% include 'accounts/administracion/dashboard/dashboardcomp3.html' %}
+                        {% include 'mainAdmin/dashboard/dashboardcomp3.html' %}
                         {% for product in products %}
-                            {% if product.proyect == item %}
-                                {% include 'accounts/administracion/dashboard/dashboardcomp4.html' %}
+                            {% if product.project == item %}
+                                {% include 'mainAdmin/dashboard/dashboardcomp4.html' %}
                             {% endif %}
                         {% endfor %}
                     </table>

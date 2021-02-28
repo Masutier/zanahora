@@ -1,4 +1,4 @@
-{% extends 'mainAdmin/main.html' %}
+{% extends 'zanamain/main.html' %}
 {% load static %}
 {% block content %}
 
@@ -29,7 +29,7 @@
 
             <h5 class="card-title mt-4 subtitelall">Productos Pendientes para Repartición</h5>
             <div class="card card-body">
-            {% for item in proyectos %}
+            {% for item in projectos %}
                 <div class="row">
                     <div class="mr-auto ml-4" id='{{item}}'><h2>{{item}}</h2></div>
                 </div>
@@ -54,7 +54,7 @@
                 {% for objs in pending_orders %}
                     {% if objs %}
                         {% for obj in objs.orderitem_set.all %}
-                            {% if obj.product.proyect == item %}
+                            {% if obj.product.project == item %}
                             <div class="col-md-12 mx-auto">
                                 <div class="col-md-11 mx-auto">
                                     <div class="row">

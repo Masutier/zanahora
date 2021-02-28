@@ -1,0 +1,145 @@
+<html>
+<head>
+<style>
+    @page {
+        size: a4 portrait;
+        @frame header_frame {
+            -pdf-frame-content: header_content;
+            left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+        }
+        @frame content_frame {
+            left: 50pt;
+            width: 512pt;
+            top: 90pt;
+            height: 632pt;
+        }
+    }
+    table, ul, li {
+        text-align: left;
+        font-size: 1.1rem;
+        list-style: none;
+    }
+    ul, li{
+    }
+    ul {
+        padding-left: 1.5rem;
+    }
+    li{
+        padding-top: 0.2rem;
+    }
+    table, tr, th {
+        text-align: center;
+        font-size: 1.1rem;
+    }
+    td{
+        margin-top: 0.3rem;
+    }
+</style>
+</head>
+
+<body>
+
+    <!-- Content for Static Frame 'header_frame' -->
+    <div id="header_content">page <pdf:pagenumber> of <pdf:pagecount> </div>
+
+    <h1>Orden #: {{order.id}} </h1>
+    <h3>Estatus: {{order.status}}</h3>
+
+    <div id="content_frame">
+        <table>
+            <tr>
+                <td>
+                    <ul>
+                        <li>Cliente: {{order.customer}}</li>
+                        <li>transaction_id #: {{order.transaction_id}}</li>
+                        <li>Fecha: {{order.date_created}}</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li>Teléfono: {{order.customer.phoneNum}}</li>
+                        <li>Dirección: {{order.address}}</li>
+                        <li>barrio: {{order.barrio}}</li>
+                        <li>Ciudad: {{order.city}}</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <h2>Productos</h2>
+
+    <div id="content_frame">
+        <table>
+            <tr>
+                <th>Producto</th>
+                <th>Un</th>
+                <th>Cant</th>
+                <th>Precio</th>
+                <th>Total</th>
+            </tr>
+            {% for obj in order.orderitem_set.all %}
+                <tr>
+                <td>{{obj.product.name}}</td>
+                <td>{{obj.product.presenta}}</td>
+                <td>{{obj.quantity}}</td>
+                <td>${{obj.itemPrice}}</td>
+                <td>${{obj.hist_get_total}}</td>
+                </tr>
+            {% endfor %}
+            </tr>
+                <td>----</td>
+                <td>----</td>
+                <td>----</td>
+                <td>----</td>
+                <td>----</td>
+            </tr>
+            <tr>
+                <td><h6>Numero de productos: </h6></td>
+                <td></td>
+                <td><strong>{{order.get_cart_items}}</strong></td>
+                <td><h6>Sub Total del Canasto: </h6></td>
+                <td><strong>${{order.hist_order_subtotal}}</strong></td>
+            </tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Domicilio</td>
+                <td>$5000</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><h6>Total del Canasto: </h6></td>
+                <td><strong>${{order.hist_order_total}}</strong></td>
+            </tr>
+        </table>
+    </div>
+
+    <h2>Domiciliario</h2>
+
+    <div id="content_frame">
+        <table>
+            <tr>
+                <th>Repartidor</th>
+                <th>Doc Identidad</th>
+                <th>Teléfono</th>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>{{order.repartidor.name}}</td>
+                <td>{{order.repartidor.cedulaId}}</td>
+                <td>{{order.repartidor.phoneNum}}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <h2>Notas</h2>
+    <p> {{order.note}}</p>
+
+</body>
+</html>

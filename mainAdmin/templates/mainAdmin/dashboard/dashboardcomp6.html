@@ -1,0 +1,12 @@
+
+<tr>
+    <td>{{project.name}}</td>
+    <td>{{project.modelo}}</td>
+    <td>{{project.phoneNum}}</td>
+    <td>{{project.email}}</td>
+    <td>{{project.barrio}}</td>
+    <td>{{project.city}}</td>
+    <td>{{project.status}}</td>
+    <td><a href="{% url 'update_project' project.id %}" class="btn btn-info btn-sm">Mod</td>
+    <td><a href="{% url 'delete_project' project.id %}" class="btn btn-danger btn-sm">Del</td>
+</tr>

@@ -1,0 +1,130 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid">
+    <h2 class="col-md-12 mt-4  mx-auto c">Detalle del Proyecto</h2>
+</div>
+<br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9 mt-3 mb-4 mx-auto ">
+            <div class="col-md-12 mx-auto ">
+                <div class="row">
+                    <div class="col-md-5 mx-auto">
+                        <div class="col-md-10 mx-auto mt-2 ">
+                            <div class="row">
+                                <img src="{{ object.logo.url }}" class="logoimg mx-auto" alt="">
+                            </div>
+                            <h1 class="mt-3 c"><strong>{{ object.name }}</strong></h1>
+                            <p class="mt-3">Representante: <strong>{{ object.represent }}</strong></p>
+                            <p class="mt-3">Modelo: <strong>{{ object.modelo }}</strong></p>
+                            <p class="mt-3">Email: <strong>{{ object.email }}</strong></p>
+                            <p class="mt-3">Localización: <strong>{{ object.barrio }}</strong></p>
+                            <p class="mt-3">Departamento: <strong>{{ object.state }}</strong></p>
+                            <p class="mt-3">Afiliado Desde: <strong>{{ object.date_created }}</strong></p>
+                        </div>
+                    </div>
+                    <div class="col-md-5 mx-auto mt-4">
+                        <div class="col-md-12 mx-auto mt-4 ">
+                            <img src="{{ object.foto1.url }}" class="proyimg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class='col-md-12 mt-3 mx-auto '>
+                <div class="col-md-11 mx-auto">
+                    <h2 class="col-md-12 mt-4  mx-auto c">El Proyecto</h2>
+                    <div class="col-md-11 mx-auto mt-2 ">
+                        <p class="txtjust mt-3">{{ object.projectDescr }}</p>
+                    </div>
+                </div>
+
+                {% if object.foto2 %}
+                <div class="col-md-6 mx-auto">
+                    <div class="col-md-10 mx-auto mt-2 ">
+                        <img src="{{ object.foto2.url }}" class="proyimg" alt="">
+                    </div>
+                </div>
+                <br>
+                {% endif %}
+
+                <div class="col-md-11 mx-auto">
+                    <h2 class="col-md-12 mt-4 mx-auto c">Como Lo Hacemos</h2>
+                    <div class="col-md-11 mx-auto ">
+                        <p class="txtjust mt-3">{{ object.productDescr }}</p>
+                    </div>
+                </div>
+
+
+                {% if object.foto4 %}
+                <div class="col-md-11 mt-3 mx-auto">
+                    <div class="row">
+                        <div class="col-md-6 mx-auto">
+                            <div class="col-md-10 mx-auto ">
+                                <img src="{{ object.foto3.url }}" class="proyimg" alt="">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mx-auto">
+                            <div class="col-md-10 mx-auto ">
+                                <img src="{{ object.foto4.url }}" class="proyimg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                {% elif object.foto3 %}
+                <div class="col-md-6 mt-3 mx-auto">
+                    <div class="col-md-10 mx-auto ">
+                        <img src="{{ object.foto3.url }}" class="proyimg" alt="">
+                    </div>
+                </div>
+                <br>
+                {% endif %}
+
+                {% if object.otherDescr %}
+                <div class="col-md-11 mx-auto">
+                    <h2 class="col-md-12 mt-2 mx-auto c">Otras cositas que decir</h2>
+                    <div class="col-md-11 mx-auto ">
+                        <p class="txtjust mt-3">{{ object.otherDescr }}</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            {% if videos %}
+            <div class="col-md-12 mx-auto pt-2">
+                <h2 class="col-md-12 mt-4 mx-auto c">Videos del Proyecto</h2>
+                <div class="row">
+                    <div class="col-md-10 mx-auto">
+                        <div class="row">
+                            {% for video in videos %}
+                                {% include 'projects/partials/video_card.html' with instance=video %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="col-md-2 mt-3 mb-4 mx-auto ">
+            <h4 class="c">Productos Relacionados al Proyecto</h4>
+            {% for product in products %}
+                <a href="{{ product.get_absolute_url }}" class="btn btn-light btn-sm btn-block">{{product.name}} {{product.presenta}}</a>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+{% endblock %}

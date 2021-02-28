@@ -16,6 +16,7 @@ urlpatterns = [
     path('', include('products.urls')),
     path('', include('prjects.urls')),
     path('', include('users.urls')),
+    path('', include('zanamain.urls')),
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,16 @@
+{% load static %}
+<div class="card cardall" >
+    <a href="{{ instance.get_absolute_url }}">
+        <img src="{{ instance.foto1.url }}" class="card-img cardimg" alt="">
+    </a>
+    <div class="card-body">
+        <h5 class="card-title"><strong>{{ instance.name }}</strong></h5>
+        <h6 class="card-title ">Modelo de Proyecto: <strong>{{ instance.modelo }}</strong></h6>
+        <h6 class="card-title ">Localización: <strong>{{ instance.barrio }}, {{ instance.city }}</strong></h6>
+
+        <div class="c">
+            <a href="{{ instance.get_absolute_url }}" class="btn btn-success btn-block btn-sm ">Detalle</a>
+        </div>
+
+    </div>
+</div>

@@ -1,6 +1,7 @@
-
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404
+
+from users.decorators import unauthenticated_user, allowed_users, admin_only
 
 from .forms import CreateProductForm
 

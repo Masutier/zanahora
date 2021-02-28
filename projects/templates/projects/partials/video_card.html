@@ -1,0 +1,13 @@
+{% load static %}
+<div class="card cardall" >
+    <a href="{{ instance.video_url }}" target='_blank'>
+        <img src="{{ instance.thumbnail.url }}" class="card-img cardimg" alt="">
+    
+        <div class="card-body">
+            <h5 class="card-title cardtxt">{{ instance.title }}</h5>
+            <h6 class="card-title cardtxt">{{ instance.comment }}</h6>
+            <h6 class="card-title cardtxt">Proyecto: <strong>{{ instance.project.name }}</strong></h6>
+            <span class="badge badge-pill badge-light mr-auto mt-1 mb-1">{{ instance.date_added }}</span>
+        </div>
+    </a>
+</div>

@@ -23,16 +23,3 @@ class Repartidor(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Video(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, blank=True, null=True)
-    title = models.CharField(max_length=50, blank=True, null=True)
-    comment = models.CharField(max_length=200, blank=True, null=True)
-    video_url = models.CharField(max_length=500, blank=True, null=True)
-    thumbnail = models.ImageField(default='media/img/videos/defaultVideo.png', upload_to='media/img/videos', blank=True, null=True)
-    date_added = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-
-    def __str__(self):
-        return self.title
-

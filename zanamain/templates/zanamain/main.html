@@ -59,7 +59,7 @@
 </head>
 
 <body>
-    {% include 'mainAdmin/partials/navbar.html' %}
+    {% include 'zanamain/partials/navbar.html' %}
 
     {% if request.user.is_staff %} 
         {% include 'mainAdmin/partials/navbar_admin.html' %}
@@ -83,10 +83,10 @@
 
     {% endblock content %} 
     
-    {% include 'mainAdmin/partials/backtop.html' %}
-    {% include 'mainAdmin/partials/carrito.html' %}
+    {% include 'zanamain/partials/backtop.html' %}
+    {% include 'zanamain/partials/carrito.html' %}
     <hr> 
-    {% include 'mainAdmin/partials/footer.html' %}
+    {% include 'zanamain/partials/footer.html' %}
 </body>
 
 

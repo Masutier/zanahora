@@ -1,0 +1,136 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="col-md-12 mt-4 mx-auto">
+    <div class="row">
+    <!-- Side Menu -->
+        <div class="col-md-2">
+            {% include 'mainAdmin/partials/side_menu_admin.html' %}
+        </div>
+
+        <br>
+    <!-- Ordenes -->
+        <div class="col-md-10">
+            <h1 class="card-title titelall c">Ordenes</h1>
+            {% include 'mainAdmin/dashboard/order_resum.html' %}
+            <h1 class="card-title titelall c">Productos</h1>
+            {% include 'mainAdmin/dashboard/product_resum.html' %}
+
+            <a id="En Aprobación"></a>
+            <h5 class="card-title mt-4 subtitelall">Ordenes En Aprobación</h5>
+            <div class="card card-body">
+                <table class="table table-sm">
+                    {% include 'mainAdmin/dashboard/dashboardcomp1.html' %}
+                    {% for order in payment_orders %}
+                        {% include 'mainAdmin/dashboard/dashboardcomp2.html' %}
+                    {% endfor %}
+                </table>
+            </div>
+
+            <a id="Pago Realizado"></a>
+            <h5 class="card-title mt-4 subtitelall">Ordenes Pago Realizado</h5>
+            <div class="card card-body">
+                <table class="table table-sm">
+                    {% include 'mainAdmin/dashboard/dashboardcomp1.html' %}
+                    {% for order in payment_done %}
+                        {% include 'mainAdmin/dashboard/dashboardcomp2.html' %}
+                    {% endfor %}
+                </table>
+            </div>
+
+            <a id="Pendiente"></a>
+            <h5 class="card-title mt-4 subtitelall">Ordenes Pendientes para Repartición</h5>
+            <div class="card card-body">
+                <table class="table table-sm">
+                    {% include 'mainAdmin/dashboard/dashboardcomp1.html' %}
+                    {% for order in pending_orders %}
+                        {% include 'mainAdmin/dashboard/dashboardcomp2.html' %}
+                    {% endfor %}
+                </table>
+            </div>
+
+            <a id="En Ruta"></a>
+            <h5 class="card-title mt-4 subtitelall">Ordenes en Ruta</h5>
+            <div class="card card-body">
+                <table class="table table-sm">
+                    {% include 'mainAdmin/dashboard/dashboardcomp1.html' %}
+                    {% for order in indelivery_orders %}
+                        {% include 'mainAdmin/dashboard/dashboardcomp2.html' %}
+                    {% endfor %}
+                </table>
+            </div>
+
+            <a id="Entrega Confirmada"></a>
+            <h5 class="card-title mt-4 subtitelall">Ordenes Entrega Confirmada</h5>
+            <div class="card card-body">
+                <table class="table table-sm">
+                    {% include 'mainAdmin/dashboard/dashboardcomp1.html' %}
+                    {% for order in deliver_conf_orders %}
+                        {% include 'mainAdmin/dashboard/dashboardcomp2.html' %}
+                    {% endfor %}
+                </table>
+            </div>
+
+            <a id="Entregado"></a>
+            <h5 class="card-title mt-4 subtitelall">Ordenes Entregadas</h5>
+            <div class="card card-body">
+                <table class="table table-sm">
+                    {% include 'mainAdmin/dashboard/dashboardcomp1.html' %}
+                    {% for order in delivered_orders %}
+                        {% include 'mainAdmin/dashboard/dashboardcomp2.html' %}
+                    {% endfor %}
+                </table>
+            </div>
+
+        <!-- Productos -->
+            <h1 class="card-title titelall mt-4 c">Productos</h1>
+            <a id="Apply"></a>
+            <h5 class="card-title subtitelall">Productos Aplicando para Aprobación</h5>
+            <div class="card card-body">
+                <table class="table table-sm">
+                    {% include 'mainAdmin/dashboard/dashboardcomp3.html' %}
+                    {% for product in apply_products %}
+                        {% include 'mainAdmin/dashboard/dashboardcomp4.html' %}
+                    {% endfor %}
+                </table>
+            </div>
+
+            <a id="Aproved"></a>
+            <h5 class="card-title mt-4 subtitelall">Productos Aprovados</h5>
+            <div class="card card-body">
+                <table class="table table-sm">
+                    {% include 'mainAdmin/dashboard/dashboardcomp3.html' %}
+                    {% for product in aproved_products %}
+                        {% include 'mainAdmin/dashboard/dashboardcomp4.html' %}
+                    {% endfor %}
+                </table>
+            </div>
+
+            <a id="Void"></a>
+            <h5 class="card-title mt-4 subtitelall">Productos Anulados</h5>
+            <div class="card card-body">
+                <table class="table table-sm">
+                    {% include 'mainAdmin/dashboard/dashboardcomp3.html' %}
+                    {% for product in void_products %}
+                        {% include 'mainAdmin/dashboard/dashboardcomp4.html' %}
+                    {% endfor %}
+                </table>
+            </div>
+
+            <a id="Delete"></a>
+            <h5 class="card-title mt-4 subtitelall">Productos Borrados</h5>
+            <div class="card card-body">
+                <table class="table table-sm">
+                    {% include 'mainAdmin/dashboard/dashboardcomp3.html' %}
+                    {% for product in deleted_products %}
+                        {% include 'mainAdmin/dashboard/dashboardcomp4.html' %}
+                    {% endfor %}
+                </table>
+            </div>
+
+        </div>
+    </div>   
+</div>
+
+{% endblock content %}
