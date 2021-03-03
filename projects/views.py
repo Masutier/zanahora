@@ -126,7 +126,7 @@ def createProject(request):
         projectForm = CreateProjectForm(request.POST, request.FILES)
         if projectForm.is_valid():
             projectForm.save()
-            return redirect('admin_home')
+            return redirect('adminHome')
 
     products = Product.objects.all()
 
@@ -161,7 +161,7 @@ def updateProject(request, pk):
         projectForm = CreateProjectForm(request.POST, request.FILES, instance=project)
         if projectForm.is_valid():
             projectForm.save()
-            return redirect('admin_home')
+            return redirect('adminHome')
 
     # natural
     natural = Natural.objects.all()
@@ -185,7 +185,7 @@ def deleteProject(request, pk):
     project = Project.objects.get(id=pk)
     if request.method == 'POST':
         project.delete()
-        return redirect('admin_home')
+        return redirect('adminHome')
 
     context = {'item': project}
     return render(request, 'projects/logs/delete_project.html', context)

@@ -192,7 +192,7 @@ def updateOrder(request, pk):
         form = OrderForm(request.POST, instance=order)
         if form.is_valid():
             form.save()
-            return redirect('admin_home')
+            return redirect('adminHome')
         else:
             messages.info(request, 'Algo no salio bien, Revisa bien la información ingresada')
 
@@ -225,7 +225,7 @@ def updateOrderStat(request, pk):
                     obj.save()
                 messages.info(request, 'Pendiente -- ítems de db')
                 form.save()
-                return redirect('admin_home')
+                return redirect('adminHome')
 
             if stat == 'En Aprobación' or stat == 'Pago Realizado' and order.status == 'Entregado':
                 for item in order.orderitem_set.all():
@@ -235,17 +235,17 @@ def updateOrderStat(request, pk):
                     obj.save()
                 messages.info(request, 'Entregado -- ítems de db')
                 form.save()
-                return redirect('admin_home')
+                return redirect('adminHome')
 
             if stat == 'En Aprobación' or stat == 'Pago Realizado' and order.status == 'Rechazado':
                 messages.info(request, '==> Rechazado No db')
                 form.save()
-                return redirect('admin_home')
+                return redirect('adminHome')
 
             if stat == 'Pendiente' or stat == 'En Ruta' or stat == 'Entrega Confirmada' and order.status == 'Entregado':
                 messages.info(request, '==> Entregado No db')
                 form.save()
-                return redirect('admin_home')
+                return redirect('adminHome')
 
             if stat == 'Pendiente' and order.status == 'En Aprobación' or order.status == 'Pago Realizado':
                 for item in order.orderitem_set.all():
@@ -255,7 +255,7 @@ def updateOrderStat(request, pk):
                     obj.save()
                 messages.info(request, 'Pendiente ==> ' + order.status + ' + ítems a db')
                 form.save()
-                return redirect('admin_home')
+                return redirect('adminHome')
 
             if stat == 'Pendiente' and order.status == 'En Ruta':
                 messages.info(request, 'Pendiente ==> ' + order.status + ' No db')
@@ -277,17 +277,17 @@ def updateOrderStat(request, pk):
                 from_email = settings.EMAIL_HOST_USER
                 to = [order.customer.email]
                 mail.send_mail(subject, plain_message, from_email, to, html_message=html_message)
-                return redirect('admin_home')
+                return redirect('adminHome')
 
             if stat == 'En Ruta' and order.status == 'Entrega Confirmada' or order.status == 'Entregado':
                 messages.info(request, '==> Entrega Confirmada No db')
                 form.save()
-                return redirect('admin_home')
+                return redirect('adminHome')
 
             if stat == 'En Ruta' and order.status == 'Pendiente':
                 messages.info(request, 'En Ruta ==> ' + order.status + ' No db')
                 form.save()
-                return redirect('admin_home')
+                return redirect('adminHome')
 
             if stat == 'En Ruta' and order.status == 'Rechazado':
                 for item in order.orderitem_set.all():
@@ -297,15 +297,15 @@ def updateOrderStat(request, pk):
                     obj.save()
                 messages.info(request, 'Rechazada + ítems a db')
                 form.save()
-                return redirect('admin_home')
+                return redirect('adminHome')
 
             if stat == 'Entrega Confirmada' and order.status == 'En Ruta' or order.status == 'Pendiente':
                 messages.info(request, 'Entrega Confirmada ==> ' + order.status + ' No db')
                 form.save()
-                return redirect('admin_home')
+                return redirect('adminHome')
 
             messages.info(request, 'La Orden NO se actualizo y no se cambio el estatus')
-            return redirect('admin_home')
+            return redirect('adminHome')
         else:
             messages.info(request, 'Algo no salio bien, Revisa bien la información ingresada')
 
@@ -326,7 +326,7 @@ def deleteOrder(request, pk):
     order = Order.objects.get(id=pk)
     if request.method == 'POST':
         order.delete()
-        return redirect('admin_home')
+        return redirect('adminHome')
 
     context = {'item': order}
     return render(request, 'orders/delete_order.html', context)
