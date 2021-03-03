@@ -2,6 +2,8 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
+
+from cupons.models import Coupon
 from users.models import *
 from mainAdmin.models import Repartidor
 from products.models import Product
@@ -39,6 +41,7 @@ class Order(models.Model):
     zipcode = models.CharField(max_length=10, blank=True, null=True, default='111311')
     date_created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     date_modify = models.DateTimeField(auto_now_add=False, auto_now = True, blank=True, null=True)
+    coupon = models.ForeignKey(Coupon, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return str(self.id)
