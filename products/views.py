@@ -197,8 +197,6 @@ def product_special(request):
     return render(request, 'products/prod_estilo.html', context)
 
 
-
-
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def createProduct(request):
@@ -208,7 +206,7 @@ def createProduct(request):
         productForm = CreateProductForm(request.POST, request.FILES)
         if productForm.is_valid():
             productForm.save()
-            return redirect('admin_home')
+            return redirect('adminHome')
 
     products = Product.objects.all()
 
@@ -243,7 +241,7 @@ def updateProduct(request, pk):
         productForm = CreateProductForm(request.POST, request.FILES, instance=product)
         if productForm.is_valid():
             productForm.save()
-            return redirect('admin_home')
+            return redirect('adminHome')
 
     # natural
     natural = Natural.objects.all()
@@ -270,7 +268,7 @@ def fastUpdateProduct(request, pk):
         productForm = CreateProductForm(request.POST, request.FILES, instance=product)
         if productForm.is_valid():
             productForm.save()
-            return redirect('admin_home')
+            return redirect('adminHome')
 
     # natural
     natural = Natural.objects.all()
@@ -294,7 +292,7 @@ def deleteProduct(request, pk):
     product = Product.objects.get(id=pk)
     if request.method == 'POST':
         product.delete()
-        return redirect('admin_home')
+        return redirect('adminHome')
 
     context = {'item': product}
     return render(request, 'products/logs/delete_product.html', context)
