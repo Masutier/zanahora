@@ -8,10 +8,14 @@
                                 <strong>Tienes un Cupon?</strong>
                             </div>
                             <div class="col-md-4">
-                                <input required class="form-control" type="text" name="cupon" placeholder="Cupón... ">
+                                <input required class="form-control" type="text" name="cupon" id="cupon" placeholder="Cupón... ">
+                                <span class="hidden text-danger" id="cupon-error" style="font-size: 12px">
+                                    Cupón invalido!
+                                </span>
                             </div>
                             <div class="col-md-4">
-                                <button class="btn btn-success btn-block ">Confirmar Cupón</button>
+                                <button onclick="this.clickButtonCoupon" id="sendCoupon" class="btn btn-success btn-block ">Confirmar Cupón</button>
+                                <button onclick="this.ClearDiscount" id="clearCoupon" class="hidden btn btn-danger">Quitar cupon</button>
                             </div>
                         </div>
                     </div>
@@ -53,7 +57,7 @@
 
                     <tr>
                         <td></td>
-                        <td><h6>Cupon: </h6></td>
+                        <td><h6>Cupon: <span id="cupon-value"></span> % </h6></td>
                         <td><strong>{{coupon}}</strong></td>
                         <td><h6>Descuento del Cupon: </h6></td>
                         <td><strong>${{order.get_cart_subtotal}}</strong></td>

@@ -11,6 +11,7 @@ admin.site.index_title = "Welcome To ZanaHora Admin"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('cupons.urls')),
     path('', include('mainAdmin.urls')),
     path('', include('orders.urls')),
     path('', include('products.urls')),

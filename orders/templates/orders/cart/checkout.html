@@ -103,6 +103,7 @@
 <script type="text/javascript">
     var shipping = '{{order.shipping}}'
     var total = "{{order.get_cart_total}}"
+    var orderId = '{{ order.id }}'
 
     document.getElementById('myAddress').addEventListener('click', function(e){
         e.preventDefault()
