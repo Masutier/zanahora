@@ -74,7 +74,7 @@ def updateItem(request):
 
 
 @login_required(login_url='login')
-def checkout(request):
+def checkout(request, order_id=None):
     # index del canasto
     data = cartData(request)
     cartItems = data['cartItems']
@@ -83,6 +83,27 @@ def checkout(request):
 
     context = {'items': items, 'order': order, 'cartItems': cartItems}
     return render(request, 'orders/cart/checkout.html', context)
+
+
+@login_required(login_url='login')
+def get_checkout_items(request, order_id=None):
+    if request.method == 'GET':
+        # query = get_object_or_404(Order, id=order_id)
+        # items = query.orderitem_set.all()
+        data = cartData(request)
+        item = data['items']
+        items = []
+        for i in item:
+            x = json.dumps({
+                'name': i.product.name,
+                'presentation': i.product.presenta,
+                'quantity': i.quantity,
+                'price': int(i.product.discount_price)* i.quantity if i.product.discount_price else int(i.product.price)* i.quantity,
+            })
+            items.append(x)
+        return JsonResponse({
+            'items': items
+        })
 
 
 # ORDERS

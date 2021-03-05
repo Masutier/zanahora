@@ -1,8 +1,8 @@
 var updateBtns = document.getElementsByClassName('update-cart')
 for (i = 0; i < updateBtns.length; i++) {
     updateBtns[i].addEventListener('click', function() {
-        var productId = this.dataset.product
-        var action = this.dataset.action
+        var productId = this.dataset.product;
+        var action = this.dataset.action;
 
         if (user === 'AnonymousUser') {
             addCookieItem(productId, action)
@@ -12,9 +12,93 @@ for (i = 0; i < updateBtns.length; i++) {
     })
 }
 
+// Se activa cuando la pagina carga
+document.addEventListener("DOMContentLoaded", getOrder(undefined));
+
+// Consulta la orden del usuario y trae los productos
+function getOrder(coupon) {
+    $.ajax({
+        type: 'GET',
+        url: `/get_checkout_items/${orderId}`,
+        contentType: 'application/json; charset=utf-8',
+        success: function (res) {
+            console.log('res ', res);
+            var items = res.items;
+            var quantity = items.length;
+            var delivery = 7000;
+            var subTotal = 0;
+            var sum = items.forEach((i) => {
+                data = JSON.parse(i)
+                subTotal += parseInt(data.price);
+            });
+            console.log('subTotal ', subTotal);
+            if (coupon && coupon > 0) {
+                var total_c = 0;
+                var coupon_value = coupon / 100;
+                var discount = coupon_value * subTotal;
+                var sub = subTotal - discount;
+                total_c = sub + delivery;
+                console.log('total if ', total_c);
+
+                // Aqui viene el codigo que pintara en html la tabla del resumen de la compra con cupon
+
+            } else {
+                var total = subTotal + delivery;
+                console.log('total else ', total);
+
+                // Aqui viene el codigo que pintara en html la tabla del resumen de la compra sin cupon
+
+            }
+        },
+        error: function () {
+            console.log("error");
+        }
+    });
+
+}
+
+$('#sendCoupon').click(function (e) {
+    // Se envia a verificar el cupon
+    e.preventDefault();
+    checkCoupon();
+});
+
+function checkCoupon() {
+    var data = document.getElementById('cupon');
+    if (data.value) {
+        $.ajax({
+            type: 'GET',
+            url: `/validate_cupon?coupon=${data.value}`,
+            contentType: 'application/json; charset=utf-8',
+            success: function (res) {
+                var discount = res.discount;
+                var value = document.getElementById('cupon-value')
+                value.innerHTML = discount;
+                var clear = document.getElementById('clearCoupon')
+                clear.classList.remove("hidden");
+                getOrder(discount);
+            },
+            error: function () {
+                console.log("error");
+                var element = document.getElementById('cupon-error');
+                element.classList.remove("hidden");
+                var interval = setTimeout(function(){
+                    element.classList.add("hidden");
+                    data.value = '';
+                }, 3000);
+            }
+        });
+    }
+}
+
+function ClearDiscount() {
+    var value = document.getElementById('cupon-value')
+    value.innerHTML = ''
+    getOrder(undefined);
+}
+
 
 function addCookieItem(productId, action) {
-    console.log('User is not Authenticated')
 
     if (action == 'add') {
         if (cart[productId] == undefined) {

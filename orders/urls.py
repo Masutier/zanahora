@@ -5,7 +5,8 @@ from .views import *
 urlpatterns = [
     # CART 
     path('cart/', cart, name="cart"),
-    path('checkout/', checkout, name="checkout"),
+    path('checkout/<order_id>', checkout, name="checkout"),
+    path('get_checkout_items/<order_id>', get_checkout_items, name="get_checkout_items"),
     path('update_item/', updateItem, name="update_item"),
     path('process_order/', processOrder, name="process_order"),
     
