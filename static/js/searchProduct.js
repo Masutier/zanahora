@@ -1,7 +1,7 @@
 
 const searchProd = document.querySelector("#searchProd");
-const tableOutput = document.querySelector(".table-output");
 const appTable = document.querySelector(".app-table");
+const tableOutput = document.querySelector(".table-output");
 const tbody = document.querySelector(".table-search");
 tableOutput.style.display='none';
 

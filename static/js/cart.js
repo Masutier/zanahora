@@ -41,13 +41,127 @@ function getOrder(coupon) {
                 console.log('total if ', total_c);
 
                 // Aqui viene el codigo que pintara en html la tabla del resumen de la compra con cupon
+                const originalTable = document.querySelector(".original-table"); // Tabla original de DJANGO
+                const tablecuponOutput = document.querySelector(".table-cupon-output");
+                const tbody1 = document.querySelector(".table-cupon1");
+                const tbody2 = document.querySelector(".table-cupon2");
+
+                console.log("data xxxx con cupon", data);
+                originalTable.style.display = "none"; // Tabla original de DJANGO
+                tablecuponOutput.style.display = "block";
+    
+                items.forEach((items) => {
+                    tbody1.innerHTML += `
+                    <tr>
+                        <td>${items.name}}</td>
+                        <td>${items.presenta}}</td>
+                        <td>${items.quantity}}</td>
+                        <td>$ ${items.price}}</td>
+                        <td>$ ${items.total_c}}</td>
+                    </tr>
+                    `
+                });
+                tbody2.innerHTML += `
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><h6>Sub Total del Canasto: </h6></td>
+                        <td><strong>${subTotal}</strong></td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><h6>Cupon: ${coupon_value} % </h6></td>
+                        <td><strong>{{coupon}}</strong></td>
+                        <td><h6>Descuento del Cupon: </h6></td>
+                        <td><strong>${sub}</strong></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Domicilio</td>
+                        <td>$ ${delivery}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><h6>Total del Canasto: </h6></td>
+                        <td><strong>${total_c}</strong></td>
+                    </tr>
+                    `
 
             } else {
                 var total = subTotal + delivery;
                 console.log('total else ', total);
 
                 // Aqui viene el codigo que pintara en html la tabla del resumen de la compra sin cupon
+                const originalTable = document.querySelector(".original-table"); // Tabla original de DJANGO
+                const tablecuponOutput = document.querySelector(".table-cupon-output");
+                const tbody1 = document.querySelector(".table-cupon1");
+                const tbody2 = document.querySelector(".table-cupon2");
 
+                console.log("data xxxx sin cupon", data);
+                originalTable.style.display = "none"; // Tabla original de DJANGO
+                tablecuponOutput.style.display = "block";
+                
+                for (i=0; i<data.length; i++){
+                    tbody1.innerHTML += `
+                    <tr>
+                        <td>${data[i].name}}</td>
+                        <td>${data[i].presenta}}</td>
+                        <td>${data[i].quantity}}</td>
+                        <td>$ ${data[i].price}}</td>
+                        <td>$ ${data[i].total_c}}</td>
+                    </tr>
+                    `
+                }
+
+                //data.forEach((item) => {
+                //    tbody1.innerHTML += `
+                //    <tr>
+                //        <td>${item.name}}</td>
+                 //       <td>${item.presenta}}</td>
+                //        <td>${item.quantity}}</td>
+                //        <td>$ ${item.price}}</td>
+                //        <td>$ ${item.total_c}}</td>
+                //    </tr>
+                //    `
+                //});
+
+                tbody2.innerHTML += `
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><h6>Sub Total del Canasto: </h6></td>
+                        <td><strong>${subTotal}</strong></td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><h6>Cupon: </h6></td>
+                        <td><strong>{{coupon}}</strong></td>
+                        <td><h6>Descuento del Cupon: </h6></td>
+                        <td><strong></strong></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Domicilio</td>
+                        <td>$ ${delivery}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><h6>Total del Canasto: </h6></td>
+                        <td><strong>${total}</strong></td>
+                    </tr>
+                `
             }
         },
         error: function () {

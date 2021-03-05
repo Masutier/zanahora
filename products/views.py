@@ -54,6 +54,31 @@ def prodAll(request):
     return render(request, 'products/prod_all.html', context)
 
 
+def product_detail(request, id):
+    obj = get_object_or_404(Product, id=id)
+    products = Product.objects.all()
+
+    # categorias
+    categ = category(request)
+    categorias = categ['categorias']
+    # prodyectos
+    proye = project(request)
+    projectos = proye['projectos']
+    # natural
+    natural = Natural.objects.all()
+    # estilo
+    estilo = Estilo.objects.all()
+    # index del canasto
+    if request.user.is_authenticated:
+        data = cartData(request)
+        cartItems = data['cartItems']
+    else:
+        cartItems = 0
+
+    context = {'cartItems': cartItems, 'object': obj, 'categorias': categorias, 'natural': natural}
+    return render(request, "products/product_detail.html", context)
+
+
 def prod_by_category(request, obj):
     products = Product.objects.filter(categoria=obj, status='Aproved')
     totalProducts = Product.objects.filter(categoria=obj, status='Aproved').count()
@@ -93,31 +118,6 @@ def prod_by_category(request, obj):
     context = {'cartItems': cartItems, "products": products, 'projectos': projectos, 'obj': obj, 'categorias': categorias,
      'natural': natural, "estilo": estilo, 'page_range1': page_range1, 'totalProducts': totalProducts}
     return render(request, 'products/prod_by_category.html', context)
-
-
-def product_detail(request, id):
-    obj = get_object_or_404(Product, id=id)
-    products = Product.objects.all()
-
-    # categorias
-    categ = category(request)
-    categorias = categ['categorias']
-    # prodyectos
-    proye = project(request)
-    projectos = proye['projectos']
-    # natural
-    natural = Natural.objects.all()
-    # estilo
-    estilo = Estilo.objects.all()
-    # index del canasto
-    if request.user.is_authenticated:
-        data = cartData(request)
-        cartItems = data['cartItems']
-    else:
-        cartItems = 0
-
-    context = {'cartItems': cartItems, 'object': obj, 'categorias': categorias, 'natural': natural}
-    return render(request, "products/product_detail.html", context)
 
 
 def product_offert(request):
@@ -305,5 +305,3 @@ def deleteProduct(request, pk):
 
     context = {'item': product}
     return render(request, 'products/logs/delete_product.html', context)
-
-

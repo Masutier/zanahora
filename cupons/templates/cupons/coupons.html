@@ -1,0 +1,50 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+{% block content %}
+
+<br>
+<div class="col-md-12 mx-auto">
+    <div class="row">
+        <div class="col-md-2 ">
+            <div class="card card-body">
+                <a class="btn btn-success" href="{% url 'createCupon'%}">Crear Cupon</a>
+            </div>
+        </div>
+        <br>
+        <div class="col-md-10 mx-auto">
+            <div class="card card-body">
+                <h1 class="col-md-8 mx-auto c">Lista de Cupones</h1>
+            </div>
+
+            <div class="col-md-12 mx-auto">
+                <div class="card card-body">
+
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Code</th>
+                            <th>Valido desde</th>
+                            <th>Valido hasta</th>
+                            <th>Descuento</th>
+                            <th>Activo</th>
+                            <th>Creado</th>
+                        </tr>
+                        {% for cup in cupones %}
+                            <tr>
+                                <td>{{cup.code}}</td>
+                                <td>{{cup.valid_from}}</td>
+                                <td>{{cup.valid_to}}</td>
+                                <td>{{cup.discount}} %</td>
+                                <td>{{cup.active}}</td>
+                                <td>{{cup.date_created}}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+
+                </div>
+            </div>
+            <br>
+        </div>   
+    </div>
+</div>
+
+{% endblock content %}

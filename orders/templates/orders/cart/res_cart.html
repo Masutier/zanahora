@@ -26,7 +26,7 @@
 
             <div class="box-element">
                 <listprod>
-                <table class="table table-sm">
+                <table id="original-table" class="table table-sm">
                     <tr>
                         <th>Producto</th>
                         <th>Presentación</th>
@@ -60,7 +60,7 @@
                         <td><h6>Cupon: <span id="cupon-value"></span> % </h6></td>
                         <td><strong>{{coupon}}</strong></td>
                         <td><h6>Descuento del Cupon: </h6></td>
-                        <td><strong>${{order.get_cart_subtotal}}</strong></td>
+                        <td><strong>$0</strong></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -85,4 +85,29 @@
                     </tr>
                 </table>
                 </listprod>
+            </div>
+
+            <div class="box-element">
+                <div class="table-cupon-output">
+                    <table class="table table-sm" >
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Presentación</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+
+                        <tbody1 id="table-cupon1">
+
+                        </tbody1>
+                        
+                        <tbody2 id="table-cupon2">
+
+                        </tbody2>
+
+                    </table>
+                </div>
             </div>

@@ -7,7 +7,7 @@ SECRET_KEY = 'xh$vf)h2kear1trsrsfnw9ld8dmiv7d7%5!-7nq26_1%#k!i7*'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "https://recarga.nequi.com.co/bdigitalpsl/#!/"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
