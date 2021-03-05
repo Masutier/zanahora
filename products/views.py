@@ -1,5 +1,7 @@
+import json
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from users.decorators import unauthenticated_user, allowed_users, admin_only
@@ -18,6 +20,13 @@ def prodAll(request):
     projects = Project.objects.all()
     products_all = Product.objects.all()
 
+    # search
+    if request.method == "POST":
+        search_str = json.loads(request.body).get('searchText')
+        prod=Product.objects.filter(name__istartswith = search_str)
+        data = prod.values()
+        return JsonResponse(list(data), safe=False)
+    
     # productos a mostrar
     products = []
     for product in products_all:
