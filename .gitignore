@@ -37,3 +37,5 @@ vscode/*
 
 migrations/*
 
+media/media/Movies
+media/media/TV Shows
