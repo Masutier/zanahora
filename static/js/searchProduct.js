@@ -30,8 +30,6 @@ searchProd.addEventListener('keyup', (e) => {
                         <td>${item.price}</td>
                         <td>${item.discount_price}</td>
                         <td>${item.label}</td>
-                        <td><button onclick="det(${item.id})" class='btn btn-primary btn-sm my-1'>Detalle</button></td>
-                        <td><button data-product=${item.id} data-action='add' href='' class='btn btn-success btn-sm my-1 update-cart'>Al Canasto</button></td>
                     `
                 });
             }
@@ -41,12 +39,3 @@ searchProd.addEventListener('keyup', (e) => {
         tableOutput.style.display = "none";
     }
 })
-
-
-function det(id){
-    console.log(id)
-    location.href="/prod_detail/${id}'"
-
-}
-
-
