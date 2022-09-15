@@ -1,0 +1,42 @@
+{% extends 'zanamain/main.html' %}
+{% block content %}
+
+<div class="container-fluid tienback">
+    <div class="container col-lg-8 mx-auto">
+
+        {% if messages %}
+            <div class="col-md-12 m-5 mx-auto c ">
+                {% for message in messages %}
+                <h5>{{message}}</h5>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if form.errors %}
+            <div class="col-md-8 c mx-auto">
+                <h5>{{errors}}</h5>
+            </div>
+        {% endif %}
+
+        <div class="col-md-10 m-5 mx-auto c ">
+            <h1>Ya Saliste, que mas te gustaria?</h1>
+        </div>
+
+        <div class="col-md-6 row mx-auto">
+            <div class="col-md-6 c">
+                <a href="{% url 'home' %}">
+                    <h5>Regresar a pagina principal</h5>
+                </a>
+            </div>
+
+            <div class="col-md-6 c">
+                <a href="{% url 'login' %}">
+                    <h5>Ingresar de nuevo</h5>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}

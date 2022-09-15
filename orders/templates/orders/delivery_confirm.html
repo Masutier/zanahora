@@ -1,0 +1,56 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+
+{% block content %}
+<br>
+<div class="col-md-11 mx-auto">
+    <div class="card card-body">
+        <div class="ml-4 mx-auto c">
+            <h1>Confirmación de Entrega</h1>
+        </div>
+        <hr>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            <div class="col-md-3 row mx-auto c ">
+                <label>Información de la Entrega</label>
+                {{form.note}}
+            </div>
+            <br>
+
+            <div class="col-md-8 row mx-auto ">
+                <div class="col-md-6 c">
+                    <button class="btn btn-success btn-block my-2" onclick="goBack()">Regresar</button>
+                </div>
+                <div class="col-md-6 c">
+                    <input class="btn btn-danger btn-block my-2" type="submit" name="submit" value="Entrega Realizada">
+                </div>
+            </div>
+
+            <div class="hidden">
+                {{form.customer}}
+                {{form.complete}}
+                {{form.transaction_id}}
+                {{form.pay_note}}
+                {{form.pay}}
+                {{form.repartidor}}
+                {{form.address}}
+                {{form.barrio}}
+                {{form.city}}
+                {{form.country}}
+                {{form.zipcode}}
+                {{form.date_created}}
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<script>
+    function goBack() {
+    window.history.back();
+    }
+</script>
+
+{% endblock content %}

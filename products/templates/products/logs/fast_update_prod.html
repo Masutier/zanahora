@@ -1,0 +1,164 @@
+{% extends 'zanamain/main.html' %}
+{% block content %}
+
+
+<div class="col-md-12 mx-auto">
+    <div class="row">
+        <!-- LEFT SIDE MENU -->
+        <div class="col-md-2 mt-4">
+            <h3 class="col-md-12 pt-1 mx-auto c">Descripción del Nivel</h3>
+            {% for item in natural %}
+            <div class="card mb-3">
+                <a id="{{ item.name }}"></a>
+                <div class="col-md-5 mx-auto">
+                    <img class="mx-auto pt-1 desicon" src="{{ item.icon.url }}" alt="">
+                </div>
+                <div class="col-md-12">
+                    <h6 class="card-title c"><strong>{{ item.title }}</strong></h6>
+                    <p class="descrp c">{{ item.descrip }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <br>
+
+        <!-- DESCRIPCION -->
+        <div class="container col-lg-7 mx-auto">
+
+            {% if form.errors %}
+                <div class="col-md-8 c mx-auto">
+                    <p>Algo salio mal, Intentelo de nuevo.</p>
+                </div>
+            {% endif %}
+
+            <div class="col-md-10 m-5 mx-auto c ">
+                <h1>Modificar Rapido un Producto</h1>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-6">
+                            <label>{{product.name}}</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label>{{product.project}}</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="col-md-12 mt-4 mb-3 c">
+                        <label>Presentación: {{product.presenta}}</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-5 mx-auto">
+                            <label>Precio del Producto</label>
+                            {{productForm.price}}
+                            <p>3000, 15000, 100000</p>
+                        </div>
+                        <div class="col-md-5 mx-auto">
+                            <label>Producto En Descuento</label>
+                            {{productForm.discount_price}}
+                            <p>Debe ser menor al precio</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-6 mx-auto">
+                            <label>Costo del Producto</label>
+                            {{productForm.costo}}
+                            <p>3000, 15000, 100000</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-8 mx-auto">
+                            <label>Escoja el Nivel</label>
+                            {{productForm.label}}
+                            <ul class="ulnodecor">
+                                <li>Usual = Si el producto es de consumo usual.</li>
+                                <li>Nuevo = Si el producto es nuevo en la pagina.</li>
+                                <li>Oferta = Si el producto tiene precio "En Descuento"</li>
+                                <li>Especial = Si el producto tiene alguna característica especial.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="col-md-12 mt-4 mb-3 c">
+                        <label>Cantidad</label>
+                        {{productForm.cantidad}}
+                        <p>Unidades entregadas a ZanaHora</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-5 mx-auto">
+                            <button class="btn btn-success btn-sm btn-block" onclick="goBack()">Regresar</button>
+                        </div>
+                        <div class="col-md-5 mx-auto">
+                            <input class="btn btn-danger btn-sm btn-block" type="submit" value="MODIFICAR PRODUCTO">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hidden">
+                    {{productForm.categoria}}
+                    {{productForm.name}}
+                    {{productForm.proyect}}
+                    {{productForm.presenta}}
+                    {{productForm.description}}
+                    {{productForm.digital}}
+                    {{productForm.perecedero}}
+                    {{productForm.foto1}}
+                    {{productForm.foto2}}
+                    {{productForm.foto3}}
+                    {{productForm.foto4}}
+                    {{productForm.natural}}
+                    {{productForm.estilo}}
+                    {{productForm.status}}
+                </div>
+
+            </form>
+        </div>
+
+        <!-- RIGHT SIDE MENU -->
+        <div class="col-md-2 mt-4">
+            <h3 class="col-md-12 pt-1 mx-auto c">Descripción del Estilo</h3>
+            {% for item in estilo %}
+            <div class="card mb-3">
+                <a id="{{ item.name }}"></a>
+                <div class="col-md-5 mx-auto">
+                    <img class="mx-auto pt-1 desicon" src="{{ item.icon.url }}" alt="">
+                </div>
+                <div class="col-md-12">
+                    <h6 class="card-title c"><strong>{{ item.name }}</strong></h6>
+                    <p class="descrp c">{{ item.descrip }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+{% endblock content %}

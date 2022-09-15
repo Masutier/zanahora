@@ -1,0 +1,35 @@
+/* user - user.html - tables */
+
+useraprob {
+    overflow-x: auto;
+}
+
+userpend {
+    overflow-x: auto;
+}
+
+userruta {
+    overflow-x: auto;
+}
+
+userentre {
+    overflow-x: auto;
+}
+
+
+/* product list - prod_all.html - tables */
+
+listprod {
+    overflow-x: auto;
+}
+
+
+/* orden detalle - order_detail.html - tables */
+
+ordendetail {
+    overflow-x: auto;
+}
+
+orderdes {
+    overflow-x: auto;
+}

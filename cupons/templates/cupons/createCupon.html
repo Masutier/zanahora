@@ -1,0 +1,76 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="col-md-12 mx-auto">
+
+    <div class="container col-lg-8 mx-auto">
+
+        {% if messages %}
+            <div class="col-md-12 m-5 mx-auto c ">
+                {% for message in messages %}
+                <h5>{{message}}</h5>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if form.errors %}
+            <div class="col-md-8 c mx-auto">
+                <p>Algo salio mal, Intentelo de nuevo.</p>
+            </div>
+        {% endif %}
+
+        <div class="col-md-10 m-5 mx-auto c ">
+            <h1>Crear un Cupon</h1>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="col-lg-10 mx-auto descborde">
+            <div class="col-md-6 mx-auto mt-4 mb-3 ">
+                <label>Code</label>
+                {{cuponForm.code}}
+            </div>
+        </div>
+
+        <div class="col-lg-10 mx-auto descborde">
+            <div class="form-row mx-auto mt-4 mb-3 c">
+                <div class="col-md-6">
+                    <label>valid_from </label>
+                    {{cuponForm.valid_from}}
+                </div>
+                <div class="col-md-6">
+                    <label>valid_to </label>
+                    {{cuponForm.valid_to}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-10 mx-auto descborde">
+            <div class="col-md-6 mx-auto mt-4 mb-3 ">
+                <label>discount</label>
+                {{cuponForm.discount}}
+            </div>
+        </div>
+
+        <div class="col-lg-10 mx-auto descborde">
+            <div class="form-row mx-auto mt-4 mb-3 c">
+                <div class="col-md-6">
+                    <label>active</label>
+                    {{cuponForm.active}}
+                </div>
+            </div>
+        </div>
+
+        <div class="container col-lg-6 mt-4 mb-4 mx-auto ">
+            <input class="btn btn-success btn-block" type="submit" value="CREAR CUPON">
+        </div>
+
+        </form>
+    </div>
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,66 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+{% block content %}
+
+<br>
+
+<div class="col-md-12 mx-auto">
+    <div class="row">
+        <div class="col-md-2 ">
+            <div class="card card-body">
+                <a class="btn btn-success" href="{% url 'create_product'%}">Crear Producto</a>
+            </div>
+            <hr class="hr">
+            <h3 class="card-title titelall c">Proyectos</h3>
+            {% for obj in projectos %}
+                <ul  class="list-group mx-auto">
+                    <li class="list-group categall c">
+                        <a class="txtcat" href="#{{obj}}"><h6>{{obj}}</h6></a>
+                    </li>
+                </ul>
+            {% endfor %}
+            <hr class="hr">
+            {% include 'products/info/info_natural.html' %}
+            <a class="btn btn-info btn-sm btn-block" href="{% url 'info_icons' %}">Más Información</a>
+            <hr class="hr">
+            {% include 'users/info/info_estilo.html' %}
+            <a class="btn btn-info btn-sm btn-block" href="{% url 'info_icons' %}">Más Información</a>
+        </div>
+
+        <br>
+
+        <div class="col-md-10 mx-auto">
+            <h1 class="card-title titelall c">Productos por Proyecto</h1>
+            {% include 'mainAdmin/dashboard/product_resum.html' %}
+
+            <div class="card card-body">
+                <h1 class="col-md-8 mx-auto c">Lista de Productos</h1>
+            </div>
+
+            {% for item in projectos %}
+            <div class="row">
+                <div class="mr-auto" id='{{item}}'><h2>{{item}}</h2></div>
+            </div>
+
+            <div class="col-md-12 mx-auto">
+                <div class="card card-body">
+
+                    <table class="table table-sm">
+                        {% include 'mainAdmin/dashboard/dashboardcomp3.html' %}
+                        {% for product in products %}
+                            {% if product.project == item %}
+                                {% include 'mainAdmin/dashboard/dashboardcomp4.html' %}
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+
+                </div>
+            </div>
+            {% endfor %}
+
+            <br>
+        </div>   
+    </div>
+</div>
+
+{% endblock content %}

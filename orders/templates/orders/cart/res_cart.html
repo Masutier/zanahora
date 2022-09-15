@@ -1,0 +1,113 @@
+            <div class="box-element" id="form-wrapper">
+                <a class="btn btn-info btn-block" href="{% url 'cart' %}">Regresar al Canasto</a>
+                <hr>
+                <form>
+                    <div class="col-md-12 ">
+                        <div class="row">
+                            <div class="col-md-4 mt-2">
+                                <strong>Tienes un Cupon?</strong>
+                            </div>
+                            <div class="col-md-4">
+                                <input required class="form-control" type="text" name="cupon" id="cupon" placeholder="Cupón... ">
+                                <span class="hidden text-danger" id="cupon-error" style="font-size: 12px">
+                                    Cupón invalido!
+                                </span>
+                            </div>
+                            <div class="col-md-4">
+                                <button onclick="this.clickButtonCoupon" id="sendCoupon" class="btn btn-success btn-block ">Confirmar Cupón</button>
+                                <button onclick="this.ClearDiscount" id="clearCoupon" class="hidden btn btn-danger">Quitar cupon</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+                <h3 class="c">Resumen del Canasto</h3>
+            </div>
+
+            <div class="box-element">
+                <listprod>
+                <table id="original-table" class="table table-sm">
+                    <tr>
+                        <th>Producto</th>
+                        <th>Presentación</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Total</th>
+                    </tr>
+                    {% for item in items %}
+                    <tr>
+                        <td>{{item.product.name}}</td>
+                        <td>{{item.product.presenta}}</td>
+                        <td>{{item.quantity}}</td>
+                        {% if item.product.discount_price %}
+                            <td>${{item.product.discount_price}}</td>
+                        {% else %}
+                            <td>${{item.product.price}}</td>
+                        {% endif %}
+                        <td>${{item.get_total}}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td><h6>Numero de productos: </h6></td>
+                        <td><strong>{{order.get_cart_items}}</strong></td>
+                        <td><h6>Sub Total del Canasto: </h6></td>
+                        <td><strong>${{order.get_cart_subtotal}}</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td><h6>Cupon: <span id="cupon-value"></span> % </h6></td>
+                        <td><strong>{{coupon}}</strong></td>
+                        <td><h6>Descuento del Cupon: </h6></td>
+                        <td><strong>$0</strong></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><h6>Sub Total: </h6></td>
+                        <td><strong>${{order.get_cart_subtotal}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Domicilio</td>
+                        <td>$7000</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><h6>Total del Canasto: </h6></td>
+                        <td><strong>${{order.get_cart_total}}</strong></td>
+                    </tr>
+                </table>
+                </listprod>
+            </div>
+
+            <div class="box-element">
+                <div class="table-cupon-output">
+                    <table class="table table-sm" >
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Presentación</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+
+                        <tbody1 id="table-cupon1">
+
+                        </tbody1>
+                        
+                        <tbody2 id="table-cupon2">
+
+                        </tbody2>
+
+                    </table>
+                </div>
+            </div>

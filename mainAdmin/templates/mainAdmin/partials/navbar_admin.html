@@ -1,0 +1,59 @@
+{% load static %}
+<nav class="navbaradm navbar-expand-lg navbodyadm navbar-light navbar-custom-adm">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav2" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse navpadadm zztopadm" id="navbarNav2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a class="nav-link" href="{% url 'adminHome' %}">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'projects' %}">Proyectos</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Productos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'products_categ' %}">Productos Categoria</a>
+                    <a class="dropdown-item" href="{% url 'products_project' %}">Productos Productor</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'prod_invent' %}">Inventario Critico</a>
+                    <a class="dropdown-item" href="{% url 'lista_pedidos' %}">Pedidos a Productor</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Ordenes
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'orders_simple' %}">Ordenes</a>
+                    <a class="dropdown-item" href="{% url 'orders' %}">Ordenes All Detalle</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'orders_detail_to_aprove' %}">Ordenes Para Aprobar</a>
+                    <a class="dropdown-item" href="{% url 'orders_detail_confirm' %}">Ordenes Pago Confirmado</a>
+                    <a class="dropdown-item" href="{% url 'orders_detail_pending' %}">Ordenes Pago Pendiente</a>
+                    <a class="dropdown-item" href="{% url 'orders_detail_ruta' %}">Ordenes En Ruta</a>
+                    <a class="dropdown-item" href="{% url 'orders_detail_deliv_conf' %}">Ordenes Entrega Confirm</a>
+                    <a class="dropdown-item" href="{% url 'orders_detail_entregado' %}">Ordenes Entregado</a>
+                    <a class="dropdown-item" href="{% url 'orders_detail_reject' %}">Ordenes Rechazado</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'orders_deep' %}">Ordenes Deep Search</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Cupones
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'Cupones' %}">Cupones</a>
+                    <a class="dropdown-item" href="{% url 'createCupon' %}">Crear Cupon</a>
+                    <div class="dropdown-divider"></div>
+                </div>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'ventas_all' %}">Ventas</a></li>
+        </ul>
+        <ul class="navbar-nav mt-2 mt-lg-0">
+            <li class="nav-item navtext"><a class="nav-link" href="{% url 'user_page' %}">Administrador <strong>{{user.first_name}}</strong></a></li>
+        </ul>
+    </div>
+</nav>

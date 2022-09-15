@@ -1,0 +1,42 @@
+/* footer */
+
+.imgfoot {
+    width: 150px;
+    height: auto;
+    vertical-align: middle;
+    border-style: none;
+    margin-right: 30PX;
+    padding-top: 5px;
+    padding-left: 30px;
+}
+.imgfootlist {
+    width: 30px;
+    height: auto;
+    vertical-align: middle;
+    border-style: none;
+    margin-right: 5PX;
+    padding-top: 5px;
+
+}
+.list {
+    color: black;
+    text-decoration: none;
+    list-style: none;
+}
+.imgfoot {
+    width: 150px;
+    height: auto;
+    vertical-align: middle;
+    border-style: none;
+    margin-right: 30PX;
+    padding-top: 5px;
+    padding-left: 30px;
+}
+.netimgfoot {
+    width: 50px;
+    height: auto;
+    vertical-align: middle;
+    border-style: none;
+    margin-right: 5PX;
+    margin-bottom: 5PX;
+}

@@ -1,0 +1,238 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+
+{% block content %}
+<br>
+<div class="col-md-8 pb-3 mx-auto">
+    <div class="mx-auto c">
+        <h1>Finalizar Pedido</h1>
+    </div>
+</div>
+
+<div class="col-md-11 mx-auto">
+    <div class="row">
+
+        <div class="col-md-6">
+            {% include 'orders/cart/res_cart.html' %}
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="row mx-auto">
+                <div class="form-field">
+                    <h3>{{user.first_name}}</h3>
+                </div>
+                <div class="form-field ml-4">
+                    <h3>{{user.email}}</h3>
+                </div>
+            </div>
+            <hr>
+
+            {% if user.customer.address %}
+                <div class="row mx-auto">
+                    <div class="form-field" id="userAddress">
+                        <h5>{{user.customer.address}}, Barrio {{user.customer.barrio}}</h5>
+                        {{user.customer.city}}, {{user.customer.state}}, {{user.customer.country}} {{user.customer.zipcode}}</h5>
+                    </div>
+                </div>
+                
+                {% if items %}
+                    <button class="btn btn-success btn-block mt-4 mb-4" id="otrAddress">Deseas utilizar otra dirección?</button>
+                    <button class="btn btn-success btn-block mt-4 mb-4" id="myAddress">Continuar</button>
+                {% else %}
+                    <a class="btn btn-info btn-block" href="{% url 'home' %}">Tu Canasto esta vacio, Continuar Comprando</a>
+                {% endif %}
+                <hr>
+            {% endif %}
+
+            {% if user and not user.customer.address %}
+                <div class="form-field">
+                    <h6>Te pedimos que en tu Perfil, actualices tu dirección, es necesaria para poder continuar con tu compra y sera mas sencillo la próxima vez</h6>
+                </div>
+                <div class="form-field">
+                    <a class="btn btn-info btn-block" href="{% url 'user_page' %}">Ir al perfil de <strong>{{user.first_name}}</strong></a>
+                </div>
+            {% endif %}
+
+            <div id="form-wrapper" class="box-element hidden">
+                <form id="form">
+                {% csrf_token %}
+                    <div id="shipping-info">
+                        <div class="row mx-auto">
+                            <div class="form-field">
+                                <input class="form-control" type="text" name="address" placeholder="** Dirección... ">
+                            </div>
+                            <div class="form-field">
+                                <input class="form-control" type="text" name="barrio" placeholder="** Barrio... ">
+                            </div>
+                        </div>
+                        <div class="row mx-auto">
+                            <div class="form-field">
+                                <input class="form-control" type="text" name="city" placeholder="** Ciudad... ">
+                            </div>
+                            <div class="form-field">
+                                <input class="form-control" type="text" name="state" placeholder="Departamento... ">
+                            </div>
+                        </div>
+                        <div class="row mx-auto">
+                            <div class="form-field">
+                                <input class="form-control" type="text" name="country" placeholder="País... ">
+                            </div>
+                            <div class="form-field">
+                                <input class="form-control" type="text" name="zipcode" placeholder="Código Postal... ">
+                            </div>
+                        </div>
+                    </div>
+                    <label>** Espacios requeridos.</label>
+                    <hr>
+
+                    <input id="form-button" class="btn btn-success btn-block mb-4" type="submit" value="Confirmar">
+                </form>
+            </div>
+
+            {% if items %}
+                <div class="box-element hidden" id="payment-info">
+                    {% include 'orders/cart/pagos.html' %}
+                    <button class="btn btn-success btn-block mt-4 mb-4" id="make-payment">Terminar la Compra</button>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    var shipping = '{{order.shipping}}'
+    var total = "{{order.get_cart_total}}"
+    var orderId = '{{ order.id }}'
+
+    document.getElementById('myAddress').addEventListener('click', function(e){
+        e.preventDefault()
+        document.getElementById('otrAddress').classList.add("hidden");
+        document.getElementById('myAddress').classList.add("hidden");
+        document.getElementById('payment-info').classList.remove("hidden");
+        window.addressUse = 'myAddress'
+    })
+
+    document.getElementById('otrAddress').addEventListener('click', function(e){
+        e.preventDefault()
+        document.getElementById('userAddress').classList.add("hidden");
+        document.getElementById('otrAddress').classList.add("hidden");
+        document.getElementById('myAddress').classList.add("hidden");
+        document.getElementById('form-wrapper').classList.remove("hidden");
+        window.addressUse = 'otrAddress'
+    })
+
+    var form = document.getElementById('form')
+    csrftoken = form.getElementsByTagName("input")[0].value
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault()
+        document.getElementById('form-button').classList.add("hidden");
+        document.getElementById('payment-info').classList.remove("hidden");
+    })
+
+    document.getElementById('make-payment-nequi').addEventListener('click', function(e){
+        if(window.addressUse == 'myAddress'){
+            if('{{user.customer.address}}' != 'None') {
+                submitFormData()
+            }else{
+                alert('Necesitamos tu dirección para poder procesar tu pedido, puedes actualizarla en tu Perfil, sera mas sencillo la próxima vez')
+                var loc = "#"
+                var targ = ""
+                document.getElementById("make-payment-nequi").setAttribute("href",loc, "target",targ);
+                return
+            }
+        }
+        if(window.addressUse == 'otrAddress'){
+            if(form.address.value == '') {
+                alert('Necesitamos una dirección para poder procesar tu pedido')
+                var loc = "#"
+                var targ = ""
+                document.getElementById("make-payment-nequi").setAttribute("href",loc, "target",targ);
+                return
+            }else{
+                submitFormData()
+            }
+        }
+    })
+
+    document.getElementById('make-payment').addEventListener('click', function(e){
+        if(window.addressUse == 'myAddress'){
+            if('{{user.customer.address}}' != 'None') {
+                submitFormData()
+            }else{
+                alert('Necesitamos tu dirección para poder procesar tu pedido, puedes actualizarla en tu Perfil, sera mas sencillo la próxima vez')
+                var loc = "#"
+                var targ = ""
+                document.getElementById("make-payment-nequi").setAttribute("href",loc, "target",targ);
+                return
+            }
+        }
+        if(window.addressUse == 'otrAddress'){
+            if(form.address.value == '') {
+                alert('Necesitamos una dirección para poder procesar tu pedido')
+                var loc = "#"
+                var targ = ""
+                document.getElementById("make-payment-nequi").setAttribute("href",loc, "target",targ);
+                return
+            }else{
+                submitFormData()
+            }
+        }
+    })
+
+    function submitFormData(){
+        var userFormData = {
+            'name': null,
+            'email': null,
+            'total': total,
+        }
+        var shippingInfo = {
+            'address': null,
+            'barrio': null,
+            'city': null,
+            'state': null,
+            'country': null,
+            'zipcode': null,
+        }
+        if(shipping != 'False'){
+            if(window.addressUse == 'myAddress'){
+                shippingInfo.address = '{{user.customer.address}}'
+                shippingInfo.barrio = '{{user.customer.barrio}}'
+                shippingInfo.city = '{{user.customer.city}}'
+                shippingInfo.state = '{{user.customer.state}}'
+                shippingInfo.country = '{{user.customer.country}}'
+                shippingInfo.zipcode = '{{user.customer.zipcode}}'
+            } 
+            if(window.addressUse == 'otrAddress'){
+                shippingInfo.address = form.address.value
+                shippingInfo.barrio = form.barrio.value
+                shippingInfo.city = form.city.value
+                shippingInfo.state = form.state.value
+                shippingInfo.country = form.country.value
+                shippingInfo.zipcode = form.zipcode.value
+            }
+        }
+        console.log('address taked: ', shippingInfo.address)
+
+        var url = '/process_order/'
+        fetch(url, {
+            method:'POST',
+            headers:{
+                'Content-Type':'applicaiton/json',
+                'X-CSRFToken':csrftoken,
+            }, 
+            body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo, 'addressUse':window.addressUse}),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            alert('Tu transacción ha sido procesada satisfactoriamente y un email ha sido enviado, Revisa tu bandeja de spam, Gracias por tu compra')
+            cart = {}
+            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+            window.location.href = '{% url "user_page" %}'
+        })
+    }
+
+</script>
+
+{% endblock content %}

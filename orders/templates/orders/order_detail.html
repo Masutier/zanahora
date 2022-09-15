@@ -1,0 +1,87 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+
+{% block content %}
+<br>
+<div class="col-md-11 mx-auto">
+    <div class="card card-body">
+        <div class="ml-4 mx-auto c">
+            <h1>Detalle del Pedido</h1>
+        </div>
+        <ordendetail>
+        <table class="table">
+            <tr>
+                <th><h5>Numero de Orden: <strong>{{order.id}}</strong></h5></th>
+                <th><h5>Numero de Transacción: <strong>{{order.transaction_id}}</strong></h5></th>
+                <th><h5>Numero de productos: <strong>{{order.get_cart_items}}</strong></h5></th>
+                <th><h5>Total del Pedido: <strong>${{order.hist_order_total}}</strong></h5></th>
+            </tr>
+        </table>
+        </ordendetail>
+        <hr>
+        <div class="ml-4 mx-auto c">
+            <h1>Estado: <strong>{{order.status}}</strong></h1>
+        </div>
+
+    </div>
+
+    <div class="card card-body">
+        <orderdes>
+        <table class="table table-sm">
+            <tr>
+                <th>Imagen</th>
+                <th>Producto</th>
+                <th>Presentación</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Total</th>
+            </tr>
+            {% for item in items %}
+            <tr>
+                <td><img class="cartprodimg" src="{{item.product.foto1.url}}" alt="Zanahora"></td>
+                <td>{{item.product.name}}</td>
+                <td>{{item.product.presenta}}</td>
+                <td>{{item.quantity}}</td>
+                <td>${{item.itemPrice}}</td>
+                <td>${{item.hist_get_total}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td><h5><strong>Numero de Productos</strong></h5></td>
+                <td><h5><strong>{{order.get_cart_items}}</strong></h5></td>
+                <td><h5><strong>Sub-Total</strong></h5></td>
+                <td><h5><strong>${{order.hist_order_subtotal}}</strong></h5></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><h5></td>
+                <td><h5>Domicilio</h5></td>
+                <td><h5>$7000</h5></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><h5></td>
+                <td><h5><strong>Total</strong></h5></td>
+                <td><h5><strong>${{order.hist_order_total}}</strong></h5></td>
+            </tr>
+        </table>
+        </orderdes>
+    </div>
+    <div class="c">
+        <button class="btn btn-success btn-block my-2" onclick="goBack()">Regresar</button>
+    </div>
+</div>
+
+<script>
+    function goBack() {
+    window.history.back();
+    }
+</script>
+
+{% endblock content %}

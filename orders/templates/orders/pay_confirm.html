@@ -1,0 +1,114 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+
+{% block content %}
+<br>
+<div class="col-md-11 mx-auto">
+    <div class="card card-body">
+        <div class="ml-4 mx-auto c">
+            <h1>Confirmación de Pago</h1>
+        </div>
+        <div class="ml-4 mx-auto c">
+            <h1>Estado: <strong>{{order.status}}</strong></h1>
+            <hr>
+            <h5>Si ya hiciste el pago esta opción nos ayudara a darle prioridad a tu pedido.</h5>
+            <h5>Si no has hecho el pago, te pedimos que no lo marques como "Pago Realizado".</h5>
+            <h5>El estado de tu pedido cambiara cuando nosotros confirmemos que el pago se realizó y el estado cambiara a "Pendiente", que ya es cuando se remite a bodega para distribución.</h5>
+            <h5>Gracias por tu compra y te estaremos extrañando.</h5>
+        </div>
+        <hr>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            <div class="col-md-3 row mx-auto c ">
+                <label>Información del Pago</label>
+                {{form.pay_note}}
+            </div>
+            <br>
+
+            <div class="col-md-8 row mx-auto ">
+                <div class="col-md-6 c">
+                    <button class="btn btn-success btn-block my-2" onclick="goBack()">Regresar</button>
+                </div>
+                <div class="col-md-6 c">
+                    <input class="btn btn-danger btn-block my-2" type="submit" name="submit" value="Pago Realizado">
+                </div>
+            </div>
+
+            <div class="hidden">
+                {{form.customer}}
+                {{form.complete}}
+                {{form.transaction_id}}
+                {{form.note}}
+                {{form.pay}}
+                {{form.repartidor}}
+                {{form.address}}
+                {{form.barrio}}
+                {{form.city}}
+                {{form.country}}
+                {{form.zipcode}}
+                {{form.date_created}}
+            </div>
+        </form>
+    </div>
+
+    <div class="card card-body">
+        <div class="ml-4 mx-auto mb-2 c">
+            <h1><strong>Detalle de Tu Pedido</strong></h1>
+        </div>
+        
+        <ordendetail>
+        <table class="table">
+            <tr>
+                <th><h5>Numero de Orden: <strong>{{order.id}}</strong></h5></th>
+                <th><h5>Numero de Transacción: <strong>{{order.transaction_id}}</strong></h5></th>
+                <th><h5>Numero de productos: <strong>{{order.get_cart_items}}</strong></h5></th>
+                <th><h5>Total del Pedido: <strong>${{order.hist_order_total}}</strong></h5></th>
+            </tr>
+        </table>
+        </ordendetail>
+
+        <orderdes>
+        <table class="table table-sm">
+            <tr>
+                <th>Imagen</th>
+                <th>Producto</th>
+                <th>Presentación</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Total</th>
+            </tr>
+            {% for item in order.orderitem_set.all %}
+            <tr>
+                <td><img class="cartprodimg" src="{{item.product.foto1.url}}" alt="Zanahora"></td>
+                <td>{{item.product.name}}</td>
+                <td>{{item.product.presenta}}</td>
+                <td>{{item.quantity}}</td>
+                <td>${{item.itemPrice}}</td>
+                <td>${{item.hist_get_total}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td><h5><strong>Numero de Productos</strong></h5></td>
+                <td><h5><strong>{{order.get_cart_items}}</strong></h5></td>
+                <td><h5><strong>Total</strong></h5></td>
+                <td><h5><strong>${{order.hist_order_total}}</strong></h5></td>
+            </tr>
+        </table>
+        </orderdes>
+    </div>
+    <div class="c">
+        <button class="btn btn-success btn-block my-2" onclick="goBack()">Regresar</button>
+    </div>
+</div>
+
+<script>
+    function goBack() {
+    window.history.back();
+    }
+</script>
+
+{% endblock content %}

@@ -1,0 +1,63 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="col-md-12">
+    <div class="row">
+
+        <div class="col-md-2 mt-4">
+            {% include 'zanamain/partials/side_menu.html' %}
+        </div>
+        
+        <div class="col-md-10 mx-auto">
+            <div class="container-fluid">
+                <h1 class="col-md-8 pt-4 mx-auto c">Los Domicilios</h1>
+                <div class="text-justify pt-4">
+                    <h2>Sobre los Domicilios</h2>
+
+                    <h3>Los productos se entregarán en una bolsa sellada reciclada de fibra de caña</h3>
+                    <hr>
+
+                    Si Confirmas tu pago en en tu perfil, en el formato hay un espacio para que pongas las notas sobre la información del pago, 
+                    y allí puedes sugerirnos en que momento desearías recibir los artículos, 
+                    Te aclaramos que esto dependerá de el volumen de repartos que tengamos, 
+                    Si dejas tu teléfono, nos comunicaremos para confirmar el envió.
+                    <hr>
+
+                    <h4>Nuestros productores generalmente traen los artículos a Bogotá el día Jueves, por esta razón, las ordenes que se hacen hasta 
+                    el miércoles a medio día, entran en proceso para entrega ese jueves o los días siguientes.</h4>
+                    <h4>Tenemos que hacer las ordenes de los productos para que ellos los traigan el jueves.</h4>
+                    
+                    <hr>
+
+                    <h3>Ordenes con productos NO perecederos</h3>
+                    Las Ordenes que contengan solo artículos No Perecederos, se entregaran el mismo día o al día siguiente.
+                    <hr>
+
+                    <h3>Ordenes con productos Perecederos</h3>
+                    Las Ordenes que contengan artículos Perecederos se entregan entre Jueves y Sabado.
+                    * Nuestros productores generalmente traen los artículos a Bogotá el día Jueves *
+                    <hr>
+
+                    <h3>Ordenes con productos Perecederos y NO Perecederos</h3>
+                    Si tu Orden contiene artículos Perecederos y No Perecederos y deseas que los artículos No Perecederos se te entreguen antes, 
+                    El domicilio sera cobrado por cada entrega, uno por los artículos No Perecederos y otro por el de los Perecederos.
+                    Si confirmas el pago en tu perfil, dejanos saber alli si quieres que sea de esta forma.
+                    <hr>
+
+                </div>
+                <div class="col-md-10 c">
+                    <button class="btn btn-success btn-block my-2" onclick="goBack()">Regresar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function goBack() {
+    window.history.back();
+    }
+</script>
+
+{% endblock %}

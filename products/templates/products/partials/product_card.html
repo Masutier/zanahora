@@ -1,0 +1,66 @@
+{% load static %}
+
+<div class="card cardall" >
+    {% if product.cantidad != 0 %}
+        <a href="{{ instance.get_absolute_url }}">
+            <img src="{{ instance.foto1.url }}" class="card-img cardimg" alt="">
+        </a>
+    {% else %}
+        <img src="{% static 'img/icons/agotado.png' %}" class="card-img cardimg" alt="">
+    {% endif %}
+    <div class="card-body">
+        <h5 class="card-title"><strong>{{ instance.name }}</strong></h5>
+        <h6 class="card-title ">Presentación: <strong>{{ instance.presenta }}</strong></h6>
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <p><strong>Precio $
+                    {% if instance.discount_price %}
+                        <del class="mr-1">
+                            {{ instance.price }}
+                        </del>
+                        <span>{{ instance.discount_price }}</span>
+                    {% else %}
+                        <span>{{ instance.price }}</span>
+                    {% endif %}
+                    </strong>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            {% if product.label == "Oferta" %}
+                <span class="badge badge-pill badge-danger mr-auto mt-1">{{ product.label }}</span>
+            {% elif product.label == "Especial" %}
+                <span class="badge badge-pill badge-warning mr-auto mt-1">{{ product.label }}</span>
+            {% elif product.label == "Nuevo" %}
+                <span class="badge badge-pill badge-primary mr-auto mt-1">{{ product.label }}</span>
+            {% else %}
+                <span class="badge badge-pill badge-success mr-auto mt-1">{{ product.label }}</span>
+            {% endif %}
+
+            {% for natural in instance.natural.all %}
+                <a href="{% url 'info_icons' %}">
+                    <img class="mr-2 cardnatuicon" src="{{ natural.icon.url }}"/>
+                </a>
+            {% endfor %}
+        </div>
+        <div class"mx-auto">
+            {% if product.perecedero %}
+                <span class="badge badge-pill badge-light mr-auto mt-1 mb-2">Producto Perecedero</span>
+            {% else %}
+                <span class="badge badge-pill badge-light mr-auto mt-1 mb-2">No Perecedero</span>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="c">
+                <a href="{{ instance.get_absolute_url }}" class="btn btn-primary btn-sm ml-4">Detalle</a>
+            </div>
+            <div class="c">
+                {% if user.is_authenticated and product.cantidad != 0 %}
+                    <button data-product={{product.id}} data-action="add" href="" class="btn btn-success btn-sm ml-4 update-cart">Al Canasto</button>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-success btn-sm ml-4 update-cart">Al Canasto</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+{% block content %}
+
+{% if messages %}
+<div class="col-lg-12 ">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="col-md-11 mx-auto mt-4 c">
+    <div class="mb-3 c">
+        <h1 class="hellotxt"><strong>{{user.first_name}}</strong></h1>
+        <h3>Estas modificando tu perfil</h3>
+    </div>
+</div>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+<div class="col-lg-11 mx-auto ">
+    <div class="row mx-auto">
+        <div class="col-lg-4 mx-auto usrupdborde">
+            <div class="col-md-11 mx-auto mt-4 c">
+                <h2>Foto Principal</h2>
+            </div>
+            <div class="col-md-9 mx-auto c">
+                <img src="{{user.customer.image.url}}" class="rounded-circle pt-4 pb-3 " width="150px" alt="*">
+            </div>
+            <div class="form mx-auto mt-4 c">
+                {{form.image}}
+            </div>
+            <div class="form mx-auto mt-4 c">
+                <h5>La foto debe ser menor de 2 megas</h5>
+            </div>
+        </div>
+
+        <div class="col-lg-7 row mx-auto usrupdborde">
+            <div class="col-md-11 mx-auto mt-4 c">
+                <h2>Información de Perfil</h2>
+            </div>
+            <div class="col-md-6 mx-auto c">
+                <div class="form col-md-11 mx-auto mt-4 c">
+                    <label>Nombres Usuario</label>
+                    {{form.name}}
+                </div>
+                <div class="form col-md-11 mx-auto mt-4 c">
+                    <label>Correo Electrónico</label>
+                    {{form.email}}
+                </div>
+            </div>
+
+            <div class="col-md-5 mx-auto">
+                <div class="form col-md-11 mt-4 c">
+                    <label>Tipo de Documento</label>
+                    {{form.tydoc}}
+                </div>
+                <div class="form col-md-11 mt-4 c">
+                    <label>Numero de Documento</label>
+                    {{form.cedulaId}}
+                </div>
+                <div class="form col-md-11 mt-4 c">
+                    <label>Numero de Teléfono</label>
+                    {{form.phoneNum}}
+                </div>
+            </div>
+
+
+            <div class="row col-md-11 mx-auto mt-4 c">
+                <div class="form mx-auto mt-4 c">
+                    <label>Estilo</label>
+                    {{form.estilo}}
+                </div>
+                <div class="form mx-auto mt-4 c">
+                    <label>Notas</label>
+                    {{form.notasuser}}
+                </div>
+            </div>
+
+            <div class="col-md-5 mx-auto">
+                <div class="form col-md-10 mt-4 c">
+                    <label>Dirección</label>
+                    {{form.address}}
+                </div>
+                <div class="form col-md-10 mt-4 c">
+                    <label>Municipio</label>
+                    {{form.city}}
+                </div>
+                <div class="form col-md-10 mt-4 mb-3 c">
+                    <label>País</label>
+                    {{form.country}}
+                </div>
+            </div>
+
+            <div class="col-md-5 mx-auto">
+                <div class="form col-md-10 mt-4 c">
+                    <label>Barrio o Vereda</label>
+                    {{form.barrio}}
+                </div>
+                <div class="form col-md-10 mt-4 c">
+                    <label>Departamento</label>
+                    {{form.state}}
+                </div>
+                <div class="form col-md-10 mt-4 mb-3 c">
+                    <label>Código Postal</label>
+                    {{form.zipcode}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-11 mx-auto c">
+        <input class="btn btn-success btn-block mb-4" type="submit" name="submit" value="Guardar Cambios">
+    </div>
+</div>
+
+</form>
+
+{% endblock content %}

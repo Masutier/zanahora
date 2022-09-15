@@ -1,0 +1,195 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-md-12 mx-auto">
+    <div class="row">
+        <div class="col-md-2 mt-4">
+            <h3 class="col-md-12 pt-1 mx-auto c">Grupo Natural</h3>
+            {% for item in natural %}
+            <div class="card mb-3">
+                <a id="{{ item.name }}"></a>
+                <div class="col-md-5 mx-auto">
+                    <img class="mx-auto pt-1 desicon" src="{{ item.icon.url }}" alt="">
+                </div>
+                <div class="col-md-12">
+                    <h6 class="card-title c"><strong>{{ item.title }}</strong></h6>
+                    <p class="descrp c">{{ item.descrip }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <br>
+        <div class="container col-lg-8 mx-auto">
+            {% if messages %}
+                <div class="col-md-12 m-5 mx-auto c ">
+                    {% for message in messages %}
+                    <h5>{{message}}</h5>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if form.errors %}
+                <div class="col-md-8 c mx-auto">
+                    <p>Algo salio mal, Intentelo de nuevo.</p>
+                </div>
+            {% endif %}
+            <div class="col-md-10 m-5 mx-auto c ">
+                <h1>Crear un Producto</h1>
+            </div>
+            <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-6">
+                            <label>Categoría <c>*</c></label>
+                            {{productForm.categoria}}
+                        </div>
+                        <div class="col-md-6">
+                            <label>Nombre del Proyecto <c>*</c></label>
+                            {{productForm.project}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-6 ">
+                            <label>Nombre del Producto <c>*</c></label>
+                            {{productForm.name}}
+                        </div>
+                        <div class="col-md-6 ">
+                            <label>Presentación del Producto <c>*</c></label>
+                            {{productForm.presenta}}
+                            <p>500g, 250ml, 150cc</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-4">
+                            <label>Costo del Producto <c>*</c></label>
+                            {{productForm.costo}}
+                            <p>3000, 15000, 100000</p>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Precio del Producto <c>*</c></label>
+                            {{productForm.price}}
+                            <p>3000, 15000, 100000</p>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Producto En Descuento <c>*</c></label>
+                            {{productForm.discount_price}}
+                            <p>Debe ser menor al precio</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-5 mx-auto">
+                            <label>Descripcion del producto <c>*</c></label>
+                            {{productForm.description}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-6 mx-auto">
+                            <label>Escoja el Nivel <c>*</c></label>
+                            {{productForm.label}}
+                            <ul class="ulnodecor">
+                                <li>Usual = Si el producto es de consumo usual.</li>
+                                <li>Nuevo = Si el producto es nuevo en la pagina.</li>
+                                <li>Oferta = Si el producto tiene precio "En Descuento"</li>
+                                <li>Especial = Si el producto tiene alguna característica especial.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto my-4 c">
+                        <div class="col-md-4">
+                            <label>Cantidad <c>*</c></label>
+                            {{productForm.cantidad}}
+                            <p>Unidades entregadas a ZanaHora</p>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Producto Perecedero <c>*</c></label>
+                            {{productForm.perecedero}}
+                        </div>
+                        <div class="col-md-4">
+                            <label>Producto Digital <c>*</c></label>
+                            {{productForm.digital}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-8 mx-auto">
+                        <ul class="ulnodecor">
+                            <li>
+                                <label>Foto Principal <c>*</c></label>
+                                {{productForm.foto1}}
+                                <p>Foto de presentación</p>
+                            </li>
+                            <li>
+                                <label>Foto 2 <c>*</c></label>
+                                {{productForm.foto2}}
+                            </li>
+                            <li>
+                                <label>Foto 3 <c>*</c></label>
+                                {{productForm.foto3}}
+                            </li>
+                            <li>
+                                <label>Foto 4 <c>*</c></label>
+                                {{productForm.foto4}}
+                            </li>
+                        </div>
+                    </div>
+                </div>
+                {% if request.user.is_staff %}
+                    <div class="col-md-10 m-5 mx-auto c ">
+                        <h1>Solo Para Uso Administrativo</h1>
+                    </div>
+                    <div class="col-lg-10 mx-auto descborde">
+                        <div class="form-row mx-auto mt-4 mb-3 c">
+                            <div class="col-md-4 mx-auto">
+                                <p>Mirar en "Grupo Natural"</p>
+                                <label>Modo de Producción <c>*</c></label>
+                                {{productForm.natural}}
+                            </div>
+                            <div class="col-md-4 mx-auto">
+                                <p>Mirar en "Grupo Estilo"</p>
+                                <label>Asociacion a Estilo <c>*</c></label>
+                                {{productForm.estilo}}
+                            </div>
+                            <div class="col-md-4 mx-auto">
+                                <p>Mirar en "Descripción del Status"</p>
+                                <label>Status del Producto <c>*</c></label>
+                                {{productForm.status}}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="container col-lg-6 mt-4 mb-4 mx-auto ">
+                    <input class="btn btn-success btn-block" type="submit" value="CREAR PRODUCTO">
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2 mt-4">
+            <h3 class="col-md-12 pt-1 mx-auto c">Grupo Estilo</h3>
+            {% for item in estilo %}
+            <div class="card mb-3">
+                <a id="{{ item.name }}"></a>
+                <div class="col-md-5 mx-auto">
+                    <img class="mx-auto pt-1 desicon" src="{{ item.icon.url }}" alt="">
+                </div>
+                <div class="col-md-12">
+                    <h6 class="card-title c"><strong>{{ item.name }}</strong></h6>
+                    <p class="descrp c">{{ item.descrip }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

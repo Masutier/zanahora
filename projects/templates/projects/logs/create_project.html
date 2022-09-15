@@ -1,0 +1,251 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-md-12 mx-auto">
+    <div class="row">
+        <div class="col-md-2 mt-4">
+            <h3 class="col-md-12 pt-1 mx-auto c">Grupo Natural</h3>
+            {% for item in natural %}
+            <div class="card mb-3">
+                <a id="{{ item.name }}"></a>
+                <div class="col-md-5 mx-auto">
+                    <img class="mx-auto pt-1 desicon" src="{{ item.icon.url }}" alt="">
+                </div>
+                <div class="col-md-12">
+                    <h6 class="card-title c"><strong>{{ item.title }}</strong></h6>
+                    <p class="descrp c">{{ item.descrip }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <br>
+
+        <div class="container col-lg-8 mx-auto">
+            {% if messages %}
+                <div class="col-md-12 m-5 mx-auto c ">
+                    {% for message in messages %}
+                    <h5>{{message}}</h5>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if form.errors %}
+                <div class="col-md-8 c mx-auto">
+                    <p>Algo salio mal, Intentelo de nuevo.</p>
+                </div>
+            {% endif %}
+
+            <div class="col-md-10 m-5 mx-auto c ">
+                <h1>Crear un Proyecto</h1>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-6">
+                            <label>Modelo <c>*</c></label>
+                            {{projectForm.modelo}}
+                        </div>
+                        <div class="col-md-6">
+                            <label>Nombre del Proyecto <c>*</c></label>
+                            {{projectForm.name}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-5 mx-auto">
+                            <label>Convenios <c>*</c></label>
+                            {{projectForm.Convenio}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-4">
+                            <label>Nit del Proyecto <c>*</c></label>
+                            {{projectForm.nit}}
+                        </div>
+                        <div class="col-md-4">
+                            <label>Email del Proyecto <c>*</c></label>
+                            {{projectForm.email}}
+                        </div>
+                        <div class="col-md-4">
+                            <label>Teléfono del Proyecto <c>*</c></label>
+                            {{projectForm.phoneNum}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-4">
+                            <label>Representante Legal</label>
+                            {{projectForm.represent}}
+                        </div>
+                        <div class="col-md-4">
+                            <label>Tipo de Documento</label>
+                            {{projectForm.reptydoc}}
+                        </div>
+                        <div class="col-md-4">
+                            <label>Numero de Documento</label>
+                            {{projectForm.repcedulaId}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-4">
+                            <label>Persona de Contacto</label>
+                            {{projectForm.contact}}
+                        </div>
+                        <div class="col-md-4">
+                            <label>Tipo de Documento</label>
+                            {{projectForm.contydoc}}
+                        </div>
+                        <div class="col-md-4">
+                            <label>Numero de Documento</label>
+                            {{projectForm.concedulaId}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+
+                        <div class="col-md-4">
+                            <label>Dirección</label>
+                            {{projectForm.address}}
+                        </div>
+                        <div class="col-md-4">
+                            <label>Barrio o Vereda</label>
+                            {{projectForm.barrio}}
+                        </div>
+                        <div class="col-md-4">
+                            <label>Municipio</label>
+                            {{projectForm.city}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-4 ">
+                            <label>Departamento</label>
+                            {{projectForm.state}}
+                        </div>
+                        <div class="col-md-4 ">
+                            <label>Pais de Origen</label>
+                            {{projectForm.country}}
+                        </div>
+                        <div class="col-md-4 ">
+                            <label>Código Postal</label>
+                            {{projectForm.zipcode}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-5 mx-auto">
+                            <label>Descripcion del proyecto <c>*</c></label>
+                            {{projectForm.projectDescr}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-5 mx-auto">
+                            <label>Descripción del Método de Producción <c>*</c></label>
+                            {{projectForm.productDescr}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-5 mx-auto">
+                            <label>Comentarios <c>*</c></label>
+                            {{projectForm.otherDescr}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-10 mx-auto descborde">
+                    <div class="form-row mx-auto mt-4 mb-3 c">
+                        <div class="col-md-8 mx-auto">
+                        <ul class="ulnodecor">
+                            <li>
+                                <label>Logo <c>*</c></label>
+                                {{projectForm.logo}}
+                            </li>
+                            <li>
+                                <label>Foto Principal <c>*</c></label>
+                                {{projectForm.foto1}}
+                                <p>Foto de presentación</p>
+                            </li>
+                            <li>
+                                <label>Foto 2 <c>*</c></label>
+                                {{projectForm.foto2}}
+                            </li>
+                            <li>
+                                <label>Foto 3 <c>*</c></label>
+                                {{projectForm.foto3}}
+                            </li>
+                            <li>
+                                <label>Foto 4 <c>*</c></label>
+                                {{projectForm.foto4}}
+                            </li>
+                        </div>
+                    </div>
+                </div>
+
+                {% if request.user.is_staff %}
+                    <div class="col-md-10 m-5 mx-auto c ">
+                        <h1>Solo Para Uso Administrativo</h1>
+                    </div>
+
+                    <div class="col-lg-10 mx-auto descborde">
+                        <div class="form-row mx-auto mt-4 mb-3 c">
+                            <div class="col-md-4 mx-auto">
+                                <label>Status del Producto <c>*</c></label>
+                                {{projectForm.status}}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="container col-lg-6 mt-4 mb-4 mx-auto ">
+                    <input class="btn btn-success btn-block" type="submit" value="CREAR PROYECTO">
+                </div>
+
+            </form>
+
+        </div>
+
+        <div class="col-md-2 mt-4">
+            <h3 class="col-md-12 pt-1 mx-auto c">Grupo Estilo</h3>
+            {% for item in estilo %}
+            <div class="card mb-3">
+                <a id="{{ item.name }}"></a>
+                <div class="col-md-5 mx-auto">
+                    <img class="mx-auto pt-1 desicon" src="{{ item.icon.url }}" alt="">
+                </div>
+                <div class="col-md-12">
+                    <h6 class="card-title c"><strong>{{ item.name }}</strong></h6>
+                    <p class="descrp c">{{ item.descrip }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}

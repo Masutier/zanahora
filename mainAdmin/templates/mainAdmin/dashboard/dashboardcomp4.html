@@ -1,0 +1,46 @@
+
+<tr>
+    {% if product.cantidad != 0 %}
+        <td>{{product.name}}</td>
+    {% else %}
+        <td class="agot">{{product.name}}</td>
+    {% endif %}
+    <td>{{product.project}}</td>
+    <td>{{product.presenta}}</td>
+    <td>{{product.costo}}</td>
+    <td>{{product.price}}</td>
+    <td>{{product.discount_price}}</td>
+    <td>
+        {% if product.label == "Oferta" %}
+            <span class="badge badge-pill badge-danger mr-auto mr-2 mt-1">{{ product.label }}</span>
+        {% elif product.label == "Especial" %}
+            <span class="badge badge-pill badge-warning mr-auto mr-2 mt-1">{{ product.label }}</span>
+        {% elif product.label == "Nuevo" %}
+            <span class="badge badge-pill badge-primary mr-auto mr-2 mt-1">{{ product.label }}</span>
+        {% else %}
+            <span class="badge badge-pill badge-success mr-auto mr-2 mt-1">{{ product.label }}</span>
+        {% endif %}
+    </td>
+    <td>
+        {% for natural in product.natural.all %}
+        <img class="mr-2 cardnatuicon" src="{{ natural.icon.url }}"/>
+        {% endfor %}
+    </td>
+    <td>
+        {% for estilo in product.estilo.all %}
+        <img class="mr-2 cardnatuicon" src="{{ estilo.icon.url }}"/>
+        {% endfor %}
+    </td>
+    <td>
+        {% if product.perecedero %}
+            <span class="badge badge-pill badge-danger mr-auto mt-1 mb-2">Si</span>
+        {% else %}
+            <span class="badge badge-pill badge-primary mr-auto mt-1 mb-2">No</span>
+        {% endif %}
+    </td>
+    <td>{{product.cantidad}}</td>
+    <td>{{product.status}}</td>
+    <td><a href="{% url 'update_product' product.id %}" class="btn btn-info btn-sm">Mod</a></td>
+    <td><a href="{% url 'fast_update_prod' product.id %}" class="btn btn-info btn-sm">Rapida</a></td>
+    <td><a href="{% url 'delete_product' product.id %}" class="btn btn-danger btn-sm">Del</a></td>
+</tr>

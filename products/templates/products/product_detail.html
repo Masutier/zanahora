@@ -1,0 +1,102 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid">
+    <h2 class="col-md-12 mt-4  mx-auto c">Detalle del Producto</h2>
+</div>
+<br>
+<div class='col-md-10 mt-3 mb-4 mx-auto '>
+    <div class="row">
+    
+        <div class="col-md-2">
+            <div class="col-md-9 mx-auto mt-2">
+                {% if object.foto1 %}
+                    <img src="{{ object.foto1.url }}" class="card-img imgdet" alt="{{ object.categoria }}">
+                {% endif %} {% if object.foto2 %}
+                    <img src="{{ object.foto2.url }}" class="card-img imgdet" alt="{{ object.categoria }}">
+                {% endif %} {% if object.foto3 %}
+                    <img src="{{ object.foto3.url }}" class="card-img imgdet" alt="{{ object.categoria }}">
+                {% endif %} {% if object.foto4 %}
+                    <img src="{{ object.foto4.url }}" class="card-img imgdet" alt="{{ object.categoria }}">
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-4 ">
+            <div class="col-md-12 mt-4 ">
+                <img src="{{ object.foto1.url }}" class="card-img " alt="{{ object.categoria }}">
+            </div>
+        </div>
+
+        <div class="col-md-5 ">
+            <div class="col-md-10 mx-auto mt-4 ">
+
+                <h2 class=""><strong>{{ object.name }}</strong></h2>
+                <p class="mt-3">Productor: <strong>{{ object.project }}</strong></p>
+
+                <p class="mt-3">Presentación: <strong>{{ object.presenta }}</strong></p>
+
+                <p ><strong>Precio $
+                {% if object.discount_price %}
+                    <del class="mr-1">
+                        {{ object.price }}
+                    </del>
+                    <span>{{ object.discount_price }}</span>
+                {% else %}
+                    <span>{{ object.price }}</span>
+                {% endif %}
+                </strong></p>
+
+                {% if object.perecedero %}
+                    <p class="mt-3"><strong>Producto Perecedero</strong></p>
+                {% else %}
+                    <p class="mt-3"><strong>Producto No Perecedero</strong></p>
+                {% endif %}
+
+                <p class="txtjust">{{ object.description }}</p>
+                
+                <p class="card-text"><small class="text-muted">{{ object.date_created }}<br/></small></p>
+
+                <div class="c">
+                    {% if user.is_authenticated %}
+                        {% if object.cantidad != 0 %}
+                            <button data-product={{object.id}} data-action="add" href="" class="btn btn-primary btn-block my-1 update-cart">Al Canasto</button>
+                        {% else %}
+                            <button href="" class="btn btn-danger btn-block my-1 ">Agotado</button>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-primary btn-block my-2">Al Canasto</a>
+                    {% endif %}
+                </div>
+                <div class="c">
+                    <button class="btn btn-success btn-block my-2" onclick="goBack()">Regresar</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-1">
+            <div class="col-md-10 mx-auto mt-2">
+                {% if object.label %}
+                    <span class="badge badge-pill badge-danger mt-3">{{ object.label }}</span>
+                {% endif %}
+                <hr>
+                {% for natural in object.natural.all %}
+                    <a href="{% url 'info_icons' %}">
+                        <img class="natico mt-3" src="{{ natural.icon.url }}"/>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,278 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+{% block content %}
+
+{% if messages %}
+<div class="col-lg-12 mx-auto">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="col-lg-11 mx-auto">
+    <div class="row">
+        <div class="col-lg-2 mt-4 ml-4 mb-4 c borde">
+            <img src="{{user.customer.image.url}}" class="rounded-circle pt-3 pb-3" width="150px" alt="*">
+        </div>
+        <div class="col-lg-4 mt-4 ml-4 mb-4 borde">
+            <h3 class="hellotxt mt-2">
+                Hello <strong>{{user.first_name}} {{user.last_name}}</strong>
+            </h3>
+            <ul class="list">
+                <li >Nombre: <strong>{{user.customer.name}}</strong></li>
+                <li >Afiliado desde:  {{user.date_joined}}</li>
+                {% for estilo in user.customer.estilo.all %}
+                    <li >Estilo: {{estilo.name}}</li>
+                {% endfor %}
+                <li >Correo: {{user.email}}</li>
+                <li >Teléfono: {{user.customer.phoneNum}}</li>
+            </ul>
+        </div>
+        <div class="col-lg-3 mt-4 ml-4 mb-4 borde">
+            <h3 class="hellotxt mt-2">
+                Dirección
+            </h3>
+            <ul class="list">
+                <li class="">Dirección - {{user.customer.address}}</li>
+                <li class="">Barrio o Vereda - {{user.customer.barrio}}</li>
+                <li class="">Municipio - {{user.customer.city}}</li>
+                <li class="">Departamento - {{user.customer.state}}</li>
+                <li class="">País - {{user.customer.country}}</li>
+                <li class="">Código Postal - {{user.customer.zipcode}}</li>
+            </ul>
+        </div>
+        <div class="col-lg-2 mt-4 ml-4 mb-4 borde">
+            <div class="mt-2 c">
+                <a href="{% url 'user_update'%}" class="btn btn-primary my-2">Actualizar Información</a>
+            </div>
+            <div class="c">
+                <a href="{% url 'delete_user' user.id %}" class="btn btn-danger btn-sm">Eliminar Cuenta</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-10 mx-auto">
+    <div class="card card-body mx-auto c">
+        <h4>Notas del Usuario</h4>
+    </div>
+    <div class="card card-body">
+        <p>{{user.customer.notasuser}}</p>
+    </div>
+</div>
+
+<br>
+
+<div class="col-md-9 mx-auto">
+    <div class="card card-body mx-auto c">
+        <h3><strong>Ordenes</strong></h3>
+    </div>
+
+    {% if payment_orders %}
+    <div class="card card-body">
+        <a id="payment"></a>
+        <h3 class="card-title"><strong>En Aprobación</strong></h3>
+        <h6 class="card-title">Tu orden esta en espera de confirmación del pago</h6>
+        <useraprob>
+        <table class="table table-sm">
+            <tr>
+                <th>Orden</th>
+                <th>Transaction id</th>
+                <th>Fecha</th>
+                <th># Artic</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Ya Pagué</th>
+                <th>PDF</th>
+                <th>PDF</th>
+                <th>Detalle</th>
+                <th>Eliminar</th>
+            </tr>
+            {% for order in payment_orders reversed %}
+            <tr>
+                <td>{{order.id}}</td>
+                <td>{{order.transaction_id}}</td>
+                <td>{{order.date_modify}}</td>
+                <td>{{order.get_cart_items}}</td>
+                <td>${{order.hist_order_total}}</td>
+                <td>{{order.status}}</td>
+                <td><a href="{% url 'pay_confirm' order.id %}" class="btn btn-danger btn-sm">Ya Pagué</a></td>
+                <td><a href="{% url 'oc_reparto_PDF' order.id %}" class="btn btn-dark btn-sm">Ver</a></td>
+                <td><a href="{% url 'oc_reparto_DownloadPDF' order.id %}" class="btn btn-dark btn-sm">Descarga</a></td>
+                <td><a href="{% url 'order_detail' order.id %}" class="btn btn-info btn-sm">Detalle</a></td>
+                <td><a href="{% url 'user_del_ord' order.id %}" class="btn btn-danger btn-sm">Remover</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        </useraprob>
+    </div>
+    {% endif %}
+
+    {% if payment_done %}
+    <div class="card card-body">
+        <a id="pay"></a>
+        <h3 class="card-title"><strong>Pago Realizado</strong></h3>
+        <h6 class="card-title">Tu orden esta en espera de Verificación del pago</h6>
+        <useraprob>
+        <table class="table table-sm">
+            <tr>
+                <th>Orden</th>
+                <th>Transaction id</th>
+                <th>Fecha</th>
+                <th># Artic</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>PDF</th>
+                <th>PDF</th>
+                <th>Detalle</th>
+            </tr>
+            {% for order in payment_done reversed %}
+            <tr>
+                <td>{{order.id}}</td>
+                <td>{{order.transaction_id}}</td>
+                <td>{{order.date_modify}}</td>
+                <td>{{order.get_cart_items}}</td>
+                <td>${{order.hist_order_total}}</td>
+                <td>{{order.status}}</td>
+                <td><a href="{% url 'oc_reparto_PDF' order.id %}" class="btn btn-dark btn-sm">Ver</a></td>
+                <td><a href="{% url 'oc_reparto_DownloadPDF' order.id %}" class="btn btn-dark btn-sm">Descarga</a></td>
+                <td><a href="{% url 'order_detail' order.id %}" class="btn btn-info btn-sm">Detalle</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        </useraprob>
+    </div>
+    {% endif %}
+
+    {% if pending_orders %}
+    <div class="card card-body">
+        <a id="Pendientes"></a>
+        <h3 class="card-title"><strong>Pendientes</strong></h3>
+        <h6 class="card-title">Tu orden esta siendo asignada para distribución</h6>
+        <userpend>
+        <table class="table table-sm">
+            <tr>
+                <th>Orden</th>
+                <th>Transaction id</th>
+                <th>Fecha</th>
+                <th># Artic</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>PDF</th>
+                <th>PDF</th>
+                <th>Detalle</th>
+            </tr>
+            {% for order in pending_orders reversed %}
+            <tr>
+                <td>{{order.id}}</td>
+                <td>{{order.transaction_id}}</td>
+                <td>{{order.date_modify}}</td>
+                <td>{{order.get_cart_items}}</td>
+                <td>${{order.hist_order_total}}</td>
+                <td>{{order.status}}</td>
+                <td><a href="{% url 'oc_reparto_PDF' order.id %}" class="btn btn-dark btn-sm">Ver</a></td>
+                <td><a href="{% url 'oc_reparto_DownloadPDF' order.id %}" class="btn btn-dark btn-sm">Descarga</a></td>
+                <td><a href="{% url 'order_detail' order.id %}" class="btn btn-info btn-sm">Detalle</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        </userpend>
+    </div>
+    {% endif %}
+
+    {% if indelivery_orders %}
+    <div class="card card-body">
+        <a id="Ruta"></a>
+        <h3 class="card-title"><strong>En Ruta</strong></h3>
+        <h6 class="card-title">Tu orden esta ya en ruta</h6>
+        <userruta>
+        <table class="table table-sm">
+            <tr>
+                <th>Orden</th>
+                <th>Transaction id</th>
+                <th>Fecha</th>
+                <th># Artic</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>PDF</th>
+                <th>PDF</th>
+                <th>Detalle</th>
+            </tr>
+            {% for order in indelivery_orders reversed %}
+                <tr>
+                    <td>{{order.id}}</td>
+                    <td>{{order.transaction_id}}</td>
+                    <td>{{order.date_modify}}</td>
+                    <td>{{order.get_cart_items}}</td>
+                    <td>${{order.hist_order_total}}</td>
+                    <td>{{order.status}}</td>
+                    <td><a href="{% url 'oc_reparto_PDF' order.id %}" class="btn btn-dark btn-sm">Ver</a></td>
+                    <td><a href="{% url 'oc_reparto_DownloadPDF' order.id %}" class="btn btn-dark btn-sm">Descarga</a></td>
+                    <td><a href="{% url 'order_detail' order.id %}" class="btn btn-info btn-sm">Detalle</a></td>
+                </tr>
+
+                <tr>
+                    <th></th>
+                    <th>Repartidor</th>
+                    <th>Nombre</th>
+                    <th>Doc Identidad</th>
+                    <th>Teléfono</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><img src="{{order.repartidor.foto.url}}" class="" width="60px" alt="*"></td>
+                    <td>{{order.repartidor.name}}</td>
+                    <td>{{order.repartidor.cedulaId}}</td>
+                    <td>{{order.repartidor.phoneNum}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        </userruta>
+    </div>
+    {% endif %}
+
+    {% if delivered_orders %}
+    <div class="card card-body">
+        <a id="Entregadas"></a>
+        <h3 class="card-title"><strong>Entregadas</strong></h3>
+        <h6 class="card-title">Historial de compras</h6>
+        <userentre>
+        <table class="table table-sm">
+            <tr>
+                <th>Orden</th>
+                <th>Transaction id</th>
+                <th>Fecha</th>
+                <th># Artic</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>PDF</th>
+                <th>PDF</th>
+                <th>Detalle</th>
+            </tr>
+            {% for order in delivered_orders reversed %}
+                <tr>
+                    <td>{{order.id}}</td>
+                    <td>{{order.transaction_id}}</td>
+                    <td>{{order.date_modify}}</td>
+                    <td>{{order.get_cart_items}}</td>
+                    <td>${{order.hist_order_total}}</td>
+                    <td>{{order.status}}</td>
+                    <td><a href="{% url 'oc_reparto_PDF' order.id %}" class="btn btn-dark btn-sm">Ver</a></td>
+                    <td><a href="{% url 'oc_reparto_DownloadPDF' order.id %}" class="btn btn-dark btn-sm">Descarga</a></td>
+                    <td><a href="{% url 'order_detail' order.id %}" class="btn btn-info btn-sm">Detalle</a></td>
+                </tr>
+
+                <tr>
+                    <th></th>
+                    <th>Nombre del Repartidor: </th>
+                    <td>{{order.repartidor.name}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        </userentre>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock content %}

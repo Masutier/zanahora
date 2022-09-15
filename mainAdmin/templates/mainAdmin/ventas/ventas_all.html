@@ -1,0 +1,139 @@
+{% extends 'zanamain/main.html' %}
+{% block content %}
+
+<div class="col-md-12 mt-4 mx-auto">
+    <h1 class="card-title titelall c">Relación de Costos</h1>
+    <div class="row">
+
+        <div class="col-md-2 mt-4 c">
+            <div class="card card-body">
+                <h5><strong>Total Bruto de Ventas: </strong></h5>
+                <h5>${{grand_total_tot}}</h5>
+                <h5><strong>Total Costo de Ventas: </strong></h5>
+                <h5>${{grand_cost_total}}</h5>
+                <h5><strong>Diferencia: </strong></h5>
+                <h5>${{profit}}</h5>
+            </div>
+        </div>
+
+
+        <div class="col-md-10 mt-4">
+            <a id="En Aprobación"></a>
+            <div class="card card-body">
+                <div class="row">
+                    <div class="card-title mr-auto subtitelall"><h5>Ordenes En Aprobación</h5></div>
+                    <div class="card-title subtitelall"><h5>Ordenes Listadas {{payment}}<h5></div>
+                </div>
+                <orderdes>
+                <table class="table table-sm">
+                    {% include 'mainAdmin/ventas/ventadetail1.html' %}
+                    {% for order in payment_orders %}
+                        {% include 'mainAdmin/ventas/ventadetail2.html' %}
+                    {% endfor %}
+                    <tr>
+                        <th></th><th></th><th></th><th></th>
+                        <th>Totales</th>
+                        <td>${{payment_cost_tot}}</td>
+                        <td>${{payment_total_tot}}</td>
+                        <th></th><th></th>
+                    </tr>
+                </table>
+                </orderdes>
+            </div>
+
+            <a id="Pago Realizado"></a>
+            <div class="card card-body mt-2">
+                <div class="row">
+                    <div class="card-title mr-auto subtitelall"><h5>Ordenes Pago Realizado</h5></div>
+                    <div class="card-title subtitelall"><h5>Ordenes Listadas {{pay}}<h5></div>
+                </div>
+                <orderdes>
+                <table class="table table-sm">
+                    {% include 'mainAdmin/ventas/ventadetail1.html' %}
+                    {% for order in payment_done %}
+                        {% include 'mainAdmin/ventas/ventadetail2.html' %}
+                    {% endfor %}
+                    <tr>
+                        <th></th><th></th><th></th><th></th>
+                        <th>Totales</th>
+                        <td>${{pay_cost_tot}}</td>
+                        <td>${{pay_total_tot}}</td>
+                        <th></th><th></th>
+                    </tr>
+                </table>
+                </orderdes>
+            </div>
+
+            <a id="Pendiente"></a>
+            <div class="card card-body mt-2">
+                <div class="row">
+                    <div class="card-title mr-auto subtitelall"><h5>Ordenes Pendientes</h5></div>
+                    <div class="card-title subtitelall"><h5>Ordenes Listadas {{pending}}<h5></div>
+                </div>
+                <orderdes>
+                <table class="table table-sm">
+                    {% include 'mainAdmin/ventas/ventadetail1.html' %}
+                    {% for order in pending_orders %}
+                        {% include 'mainAdmin/ventas/ventadetail2.html' %}
+                    {% endfor %}
+                    <tr>
+                        <th></th><th></th><th></th><th></th>
+                        <th>Totales</th>
+                        <td>${{pend_cost_tot}}</td>
+                        <td>${{pend_total_tot}}</td>
+                        <th></th><th></th>
+                    </tr>
+                </table>
+                </orderdes>
+            </div>
+
+            <a id="En Ruta"></a>
+            <div class="card card-body mt-2">
+                <div class="row">
+                    <div class="card-title mr-auto subtitelall"><h5>Ordenes en Ruta</h5></div>
+                    <div class="card-title subtitelall"><h5>Ordenes Listadas {{indelivery}}<h5></div>
+                </div>
+                <orderdes>
+                <table class="table table-sm">
+                    {% include 'mainAdmin/ventas/ventadetail1.html' %}
+                    {% for order in indelivery_orders %}
+                        {% include 'mainAdmin/ventas/ventadetail2.html' %}
+                    {% endfor %}
+                    <tr>
+                        <th></th><th></th><th></th><th></th>
+                        <th>Totales</th>
+                        <td>${{indel_cost_tot}}</td>
+                        <td>${{indel_total_tot}}</td>
+                        <th></th><th></th>
+                    </tr>
+                </table>
+                </orderdes>
+            </div>
+
+            <a id="Entregado"></a>
+            <div class="card card-body mt-2">
+                <div class="row">
+                    <div class="card-title mr-auto subtitelall"><h5>Ordenes Entregadas</h5></div>
+                    <div class="card-title subtitelall"><h5>Ordenes Listadas {{delivered}}<h5></div>
+                </div>
+                <orderdes>
+                <table class="table table-sm">
+                    {% include 'mainAdmin/ventas/ventadetail1.html' %}
+                    {% for order in delivered_orders %}
+                        {% include 'mainAdmin/ventas/ventadetail2.html' %}
+                    {% endfor %}
+                    <tr>
+                        <th></th><th></th><th></th><th></th>
+                        <th>Totales</th>
+                        <td>${{deliv_cost_tot}}</td>
+                        <td>${{deliv_total_tot}}</td>
+                        <th></th><th></th>
+                    </tr>
+                </table>
+                </orderdes>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

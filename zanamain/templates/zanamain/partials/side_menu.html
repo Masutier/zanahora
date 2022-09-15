@@ -1,0 +1,12 @@
+
+    <a class="btn btn-success btn-sm btn-block" href="{% url 'info_agroecol' %}">Que es Agroecología?</a>
+    <a class="btn btn-success btn-sm btn-block" href="{% url 'info_entregas' %}">Información de los Domicilios</a>
+    <hr class="hr">
+    {% include 'products/partials/category.html' %}
+    <hr class="hr">
+    {% include 'products/info/info_natural.html' %}
+    <a class="btn btn-success btn-sm btn-block" href="{% url 'info_icons' %}">Más Información</a>
+    <hr class="hr">
+    {% include 'users/info/info_estilo.html' %}
+    <a class="btn btn-success btn-sm btn-block" href="{% url 'info_icons' %}">Más Información</a>
+

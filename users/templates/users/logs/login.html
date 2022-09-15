@@ -1,0 +1,63 @@
+{% extends 'zanamain/main.html' %}
+{% block content %}
+
+<div class="container-fluid tienback">
+    <div class="container col-lg-8 mx-auto">
+
+        {% if messages %}
+            <div class="col-md-12 m-5 mx-auto c ">
+                {% for message in messages %}
+                <h5>{{message}}</h5>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if form.errors %}
+            <div class="col-md-8 c mx-auto">
+                <h5>{{errors}}</h5>
+            </div>
+        {% endif %}
+
+        <div class="col-md-10 m-5 mx-auto c ">
+            <h1>Página de Ingreso</h1>
+        </div>
+
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="col-lg-10 mx-auto ">
+                <div class="col-md-8 mt-3 mb-3 mx-auto c">
+                    <label>Alias de Usuario <c>*</c></label>
+                    <input type="text" name="username" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-lg-10 mt-3 mb-3 mx-auto ">
+                <div class="col-md-6 mx-auto c">
+                    <label>Contraseña <c>*</c></label>
+                    <input type="password" name="password" class="form-control">
+                </div>
+            </div>
+
+            <div class="container col-lg-6 mt-4 mb-4 mx-auto ">
+                <input class="btn btn-success btn-block" type="submit" value="INICIAR SESION">
+            </div>
+        </form>
+
+        <div class="col-md-6 row mx-auto">
+            <div class="col-md-6 c">
+                <a href="{% url 'register' %}">
+                    <h5>No tengo Cuenta</h5>
+                </a>
+            </div>
+
+            <div class="col-md-6 c">
+                <a href="{% url 'reset_password' %}">
+                    <h5>Olvidé la contraseña</h5>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}

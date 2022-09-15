@@ -1,0 +1,79 @@
+
+<head>
+<style>
+    @page {
+        size: a4 portrait;
+        @frame header_frame {
+            -pdf-frame-content: header_content;
+            left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+        }
+        @frame content_frame {
+            left: 50pt;
+            width: 512pt;
+            top: 90pt;
+            height: 632pt;
+        }
+        @frame footer_frame {
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+        }
+    }
+    table{
+        margin:0;
+    }
+    table, tr, th {
+        font-size: 1.1rem;
+        border: 1px solid black;
+        text-align: center;
+        padding-top: 0.3rem;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- Content for Static Frame 'header_frame' -->
+    <div id="header_content">
+        <h4>Ordenes Pendientes: {{pending}}</h4>
+    </div>
+
+<!-- Content for Static Frame 'footer_frame' -->
+    <div id="footer_content">(c) - page <pdf:pagenumber>
+        of <pdf:pagecount>
+    </div>
+
+    <div id="content_frame">
+        {% for item in proyectos %}
+            <h1>Productor {{item}}</h1>
+            <h3>Fecha generación orden de compra {% now "d - M - Y" %}</h3>
+            <h1>Lista de Productos {{item}}</h1>
+            <table>
+                <tr>
+                    <th>Orden</th>
+                    <th>Producto</th>
+                    <th>Presentación</th>
+                    <th>Cant</th>
+                    <th>Costo</th>
+                </tr>
+                {% for objs in pending_orders %}
+                    {% if objs %}
+                        {% for obj in objs.orderitem_set.all %}
+                            {% if obj.product.proyect == item %}
+                                <tr>
+                                    <td>{{objs.id}}</td>
+                                    <td>{{obj.product.name}}</td>
+                                    <td>{{obj.product.presenta}}</td>
+                                    <td><b>{{obj.quantity}}</b></td>
+                                    <td><b>{{obj.costo}}</b></td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </table>
+            <pdf:nextpage />
+        {% endfor %}
+    </div>
+
+</body>
+</html>

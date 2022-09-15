@@ -1,0 +1,32 @@
+{% extends 'zanamain/main.html' %}
+
+{% block content %}
+
+<div class="col-md-4 mx-auto">
+    <div class="col-md">
+        <div class="card text-center text-white mb-3" id="orders-delivered">
+            <div class="card-header">
+                <h2 class="card-title">Eliminar Producto</h2>
+            </div>
+            <div class="card-body">
+                <p>Estas seguro de eliminar el Producto </p>
+                <h4><strong>"{{item}}"</strong></h4>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'delete_product' item.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-5 mx-auto">
+                            <a class="btn btn-info btn-sm btn-block" href="{% url 'prod_all' %}">Cancel</a>
+                        </div>
+                        <div class="col-md-5 mx-auto">
+                            <input class="btn btn-danger btn-sm btn-block" type="submit" name="Confirm">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

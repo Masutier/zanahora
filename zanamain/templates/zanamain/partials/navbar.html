@@ -1,0 +1,38 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbody navbar-light navbar-custom">
+
+    <a class="navbar-brand imgnav" href="/"><img class="imgnav" src="{% static '/img/logos/zhorizontal500.png' %}" alt="Zanahora" /></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse navpad zztop" id="navbarNav1">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">PRINCIPAL</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'prod_all' %}">LISTADO</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'prod_offert' %}">EN OFERTA</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'prod_special' %}">ESPECIALES</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'projects_all' %}">PROYECTOS</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'info_icons' %}">INFORMACION</a></li>
+        </ul>
+
+        <ul class="navbar-nav mt-2 mt-lg-0">
+            {% if user.is_authenticated %}
+                <li class="nav-item navtext"><a class="nav-link" href="{% url 'user_page' %}">Perfil de <strong>{{user.first_name}}</strong></a></li>
+                <li class="nav-item navtext"><a class="nav-link" href="{% url 'logout' %}">SALIR</a></li>
+                <li class="nav-item navtext">
+                    <div class="row  ml-3 mr-2">
+                        <a class="nav-link" href="{% url 'cart' %}">
+                            <img class="costalico" src="{% static '/img/icons/costal.png' %}"  />
+                        </a>
+                        <p id="cart-total">{{cartItems}}</p>
+                    </div>
+                </li>
+            {% else %}
+                <li class="nav-item navtext"><a class="nav-link" href="{% url 'register' %}">REGISTRATE</a></li>
+                <li class="nav-item navtext"><a class="nav-link" href="{% url 'login' %}">INICIAR SESION</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

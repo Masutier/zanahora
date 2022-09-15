@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="{% static '/img/logos/logosolo.png' %}" rel="icon">
+    <title>Zanahora</title>
+
+    <!-- Own CSS -->
+    <link rel="stylesheet" href="{% static 'css/all.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/menus.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/messages.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/product.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/response.css' %}" type="text/css" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+
+
+    <script type="text/javascript">
+        var user = '{{request.user}}'
+
+        function getToken(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getToken('csrftoken');
+
+        function getCookie(name) {
+            var cookieArr = document.cookie.split(";");
+            for (var i = 0; i < cookieArr.length; i++) {
+                var cookiePair = cookieArr[i].split("=");
+                if (name == cookiePair[0].trim()) {
+                    return decodeURIComponent(cookiePair[1]);
+                }
+            }
+            return null;
+        }
+        var cart = JSON.parse(getCookie('cart'))
+        if (cart == undefined) {
+            cart = {}
+            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+        }
+        console.log('main.html/ Cart:', cart)
+    </script>
+
+</head>
+
+<body>
+    {% include 'zanamain/partials/navbar.html' %}
+
+    {% if request.user.is_staff %} 
+        {% include 'mainAdmin/partials/navbar_admin.html' %}
+    {% endif %}
+
+    {% for group in user.groups.all %}
+        {% if group.name == 'reparto' %}
+            {% include 'mainAdmin/partials/navbar_reparto.html' %}
+        {% endif %}
+    {% endfor %}
+
+    {% if messages %} 
+        {% for message in messages %}
+            <div class="col-md-2 mx-auto mess c" id="message_container" role="alert">
+                {{message}}
+            </div>
+        {% endfor %} 
+    {% endif %} 
+
+    {% block content %} 
+
+    {% endblock content %} 
+    
+    {% include 'zanamain/partials/backtop.html' %}
+    {% include 'zanamain/partials/carrito.html' %}
+    <hr> 
+    {% include 'zanamain/partials/footer.html' %}
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+<script src="{% static 'js/cart.js' %}"></script>
+<script src="{% static 'js/searchProduct.js' %}"></script>
+
+<script>
+    var message_ele = document.getElementById("message_container");
+    if (message_ele != null) {
+        setTimeout(function() {
+            message_ele.style.display = "none";
+        }, 5000);
+    }
+</script>
+
+</html>

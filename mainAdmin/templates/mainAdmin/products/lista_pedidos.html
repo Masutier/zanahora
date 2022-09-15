@@ -1,0 +1,87 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="col-md-12 mt-4 mx-auto">
+    <div class="row">
+        <div class="col-md-2 ">
+            <div class="card card-title c">
+                <h4>Ordenes Pendientes</h4>
+                <div class="card card-body c">
+                    <h2>{{pending}}</h2>
+                </div>
+            </div>
+            <div class="card card-body c">
+                {% for objs in pending_orders %}
+                    <H6 class="c">Orden #: {{objs.id}}</H6>
+                {% endfor %}
+            </div>
+            <a href="{% url 'order_compra_PDF' %}" class="btn btn-dark btn-sm btn-block mt-3">Ver PDF</a>
+            <a href="{% url 'order_compra_DownloadPDF' %}" class="btn btn-dark btn-sm btn-block mt-3">Descargar PDF</a>
+        </div>
+        <br>
+
+        <div class="col-md-10 mx-auto">
+
+            <div class="card card-body">
+                <h1 class="col-md-8 mx-auto c">Lista de Productos para Ordenar a Proveedores</h1>
+            </div>
+
+            <h5 class="card-title mt-4 subtitelall">Productos Pendientes para Repartición</h5>
+            <div class="card card-body">
+            {% for item in projectos %}
+                <div class="row">
+                    <div class="mr-auto ml-4" id='{{item}}'><h2>{{item}}</h2></div>
+                </div>
+                <div class="col-md-12 mx-auto">
+                    <div class="col-md-11 mx-auto">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <H5>Orden</H5>
+                            </div>
+                            <div class="col-md-4">
+                                <H5>Producto</H5>
+                            </div>
+                            <div class="col-md-1">
+                                <H5>Cant</H5>
+                            </div>
+                            <div class="col-md-4">
+                                <H5>Notas</H5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% for objs in pending_orders %}
+                    {% if objs %}
+                        {% for obj in objs.orderitem_set.all %}
+                            {% if obj.product.project == item %}
+                            <div class="col-md-12 mx-auto">
+                                <div class="col-md-11 mx-auto">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <H6>{{objs.id}}</H6>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <H6>{{obj.product.name}}</H6>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <H6>{{obj.quantity}}</H6>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <H6>{{objs.note}}</H6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

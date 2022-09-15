@@ -1,0 +1,116 @@
+{% extends 'zanamain/main.html' %}
+{% block content %}
+
+    <div class="col-lg-12 mx-auto borde">
+
+        {% if messages %}
+            <div class="col-md-12 m-5 mx-auto c ">
+                {% for message in messages %}
+                <h5>{{message}}</h5>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if form.errors %}
+            <div class="col-md-8 c mx-auto">
+                <p>Algo salio mal, Intentelo de nuevo.</p>
+            </div>
+        {% endif %}
+
+        <div class="col-md-10 m-5 mx-auto c borde">
+            <h1>Página de Registro</h1>
+        </div>
+
+        <div class="col-md-12 borde">
+            <div class="row">
+
+                <div class="col-md-7 borde">
+                    <form method="POST" action="">
+                    {% csrf_token %}
+
+                    <div class="col-md-5 mt-5 mx-auto c">
+                        <label>Alias de Usuario <c>*</c></label>
+                        {{form.username}}
+                    </div>
+                    <div class="col-md-10 mx-auto mt-1 mb-3 c">
+                        <h6>Te sugerimos usar tu correo como Alias de Usuario...</h6>
+                    </div>
+
+                    <div class="col-lg-10 mx-auto">
+                        <div class="form-row mx-auto mt-5 mb-3 c">
+                            <div class="col-md-6">
+                                <label>Nombres<c>*</c></label>
+                                {{form.first_name}}
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Apellidos<c>*</c></label>
+                                {{form.last_name}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 mt-5 mb-3 mx-auto c">
+                        <label>Correo Electrónico <c>*</c></label>
+                        {{form.email}}
+                    </div>
+
+                    <div class="col-lg-10 mx-auto">
+                        <div class="form-row mx-auto mt-5 c">
+                            <div class="col-md-6">
+                                <label>Contraseña <c>*</c></label>
+                                {{form.password1}}
+                            </div>
+                            <div class="col-md-6">
+                                <label>Confirmar Contraseña <c>*</c></label>
+                                {{form.password2}}
+                            </div>
+                        </div>
+                        <div class="col-md-10 mx-auto mt-1 mb-3 c">
+                            <h6>Tu Contraseña No puede:</h6>
+                            <h6>Ser similar a la información ingresada, Ser menor a 8 caracteres, Ser solo números, Ser muy común.</h6>
+                        </div>
+                    </div>
+
+                    <div class="container col-lg-6 mt-5 mb-4 mx-auto ">
+                        <input class="btn btn-success btn-block" type="submit" value="REGISTRATE">
+                    </div>
+
+                    </form>
+
+                    <div class="col-md-10 mb-4 row mx-auto">
+                        <div class="col-md-6 c">
+                            <a href="{% url 'login' %}">
+                                <h5>Ya tengo Cuenta</h5>
+                            </a>
+                        </div>
+
+                        <div class="col-md-6 c">
+                            <a href="{% url 'reset_password' %}">
+                                <h5>Olvidé la contraseña</h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5 borde">
+                    <div class="social">
+                        <ul>
+                            <li class="facebook">
+                                <a href="">Registrarte con facebook</a>
+                            </li>
+                            <li class="google">
+                                <a href="">Registrarte con Google</a>
+                            </li>
+                            <li class="twitter">
+                                <a href="">Registrarte con Twitter</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

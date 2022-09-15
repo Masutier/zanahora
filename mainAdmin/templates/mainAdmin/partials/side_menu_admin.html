@@ -1,0 +1,43 @@
+
+            <div class="card card-body mt-4">
+                <a class="btn btn-primary" href="{% url 'create_product'%}">Crear Producto</a>
+                <a class="btn btn-primary mt-2" href="{% url 'create_project'%}">Crear Proyecto</a>
+            </div>
+            <hr class="hr">
+
+            <h3 class="card-title titelall c">Ordenes</h3>
+            {% for obj in ordEstado %}
+            <ul  class="list-group mx-auto">
+                <li class="list-group categall c">
+                    <a class="txtcat" href="#{{obj}}"><h6>{{obj}}</h6></a>
+                </li>
+            </ul>
+            {% endfor %}
+            <br>
+
+            <h3 class="card-title titelall c">Productos</h3>
+            {% for obj in prodEstado %}
+            <ul  class="list-group mx-auto">
+                <li class="list-group categall c">
+                    <a class="txtcat" href="#{{obj}}"><h6>{{obj}}</h6></a>
+                </li>
+            </ul>
+            {% endfor %}
+
+            {% for obj in categorias %}
+            <ul  class="list-group mx-auto">
+                <li class="list-group categall c">
+                    <a class="txtcat" href="#{{obj}}"><h6>{{obj}}</h6></a>
+                </li>
+            </ul>
+            {% endfor %}
+
+            <h3 class="card-title titelall c">Proyectos</h3>
+            {% for obj in projectos %}
+            <ul  class="list-group mx-auto">
+                <li class="list-group categall c">
+                    <a class="txtcat" href=""><h6>{{obj}}</h6></a>
+                </li>
+            </ul>
+            {% endfor %}
+            <br>

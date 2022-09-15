@@ -1,0 +1,57 @@
+{% extends 'zanamain/main.html' %}
+{% block content %}
+
+<div class="container-fluid tienback">
+    <div class="container col-lg-8 mx-auto">
+
+        {% if messages %}
+            <div class="col-md-12 m-5 mx-auto c ">
+                {% for message in messages %}
+                <h5>{{message}}</h5>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if form.errors %}
+            <div class="col-md-8 c mx-auto">
+                <p>Algo salio mal, Intentelo de nuevo.</p>
+            </div>
+        {% endif %}
+
+        <div class="col-md-10 m-5 mx-auto c ">
+            <h1>Página de Reactivación de Usuario</h1>
+        </div>
+        <div class="col-md-10 mx-auto">
+            <div class="col-md-8 mx-auto c">
+                <h3>Quieres reactivar tu cuenta?</h3>
+            </div>
+            <form method="POST" action="">
+            {% csrf_token %}
+                <div class="col-md-8 mt-5 mb-3 mx-auto c">
+                    <label>Ingresa otra vez Tu Correo Electrónico <c>*</c></label>
+                </div>
+                <div class="col-md-8 mt-2 mb-2 mx-auto c">
+                    {{form.email}}
+                </div>
+                <div class="col-md-8 mt-2 mb-3 mx-auto c">
+                    <h6>Probablemente tu contraseña antigua continué vigente, si no te acuerdas, simplemente cambiala iniciando sesión.</h6>
+                </div>
+                <div class="col-md-8 mx-auto">
+                    <input class="btn btn-primary btn-block my-2" type="submit" name="submit" value="Si, Reactivar mi cuenta!">
+                </div>
+            </form>
+            <div class="col-md-8 mx-auto">
+                <button onclick="goBack()" class="btn btn-primary btn-block my-2">No, Quiero registrarme con otro correo</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+{% endblock content %}

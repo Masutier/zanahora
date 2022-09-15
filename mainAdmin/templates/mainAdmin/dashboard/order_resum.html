@@ -1,0 +1,121 @@
+{% load static %}
+<div class="row">
+    <div class="col">
+        <div class="col-md">
+            <div class="card mb-1 c" id="total-orders">
+                <div class="card-header">
+                    <h6 class="card-title">Total Ordenes</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{total_orders}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <a class="a_jump" href="#En Aprobación">
+        <div class="col-md">
+            <div class="card mb-1 c" id="orders-payment">
+                <div class="card-header">
+                    <h6 class="card-title">Orden En Aprobación</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{payment}}</h4>
+                </div>
+            </div>
+        </div>
+        </a>
+    </div>
+
+    <div class="col">
+        <a class="a_jump" href="#Pago Realizado">
+        <div class="col-md">
+            <div class="card mb-1 c" id="orders-pay">
+                <div class="card-header">
+                    <h6 class="card-title">Orden Pago Realizado</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{pay}}</h4>
+                </div>
+            </div>
+        </div>
+        </a>
+    </div>
+
+    <div class="col">
+        <a class="a_jump" href="#Pendiente">
+        <div class="col-md">
+            <div class="card mb-1 c" id="orders-pending">
+                <div class="card-header">
+                    <h6 class="card-title">Ordenes Pendientes</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{pending}}</h4>
+                </div>
+            </div>
+        </div>
+        </a>
+    </div>
+
+    <div class="col">
+        <a class="a_jump" href="#En Ruta">
+        <div class="col-md">
+            <div class="card mb-1 c" id="orders-in-deliver">
+                <div class="card-header">
+                    <h6 class="card-title">Ordenes En Ruta</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{indelivery}}</h4>
+                </div>
+            </div>
+        </div>
+        </a>
+    </div>
+
+    <div class="col">
+        <a class="a_jump" href="#Entrega Confirmada">
+        <div class="col-md">
+            <div class="card mb-1 c" id="orders-delivered">
+                <div class="card-header">
+                    <h6 class="card-title">Ordenes Entrega Confirm</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{indelconf}}</h4>
+                </div>
+            </div>
+        </div>
+        </a>
+    </div>
+
+    <div class="col">
+        <a class="a_jump" href="#Entregado">
+        <div class="col-md">
+            <div class="card mb-1 c" id="orders-delivered">
+                <div class="card-header">
+                    <h6 class="card-title">Ordenes Entregadas</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{delivered}}</h4>
+                </div>
+            </div>
+        </div>
+        </a>
+    </div>
+
+    <div class="col">
+        <a class="a_jump" href="#Rechazado">
+        <div class="col-md">
+            <div class="card mb-1 c" id="orders-rejected">
+                <div class="card-header">
+                    <h6 class="card-title">Ordenes Rechazadas</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{rejected}}</h4>
+                </div>
+            </div>
+        </div>
+        </a>
+    </div>
+
+</div>

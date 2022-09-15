@@ -1,0 +1,130 @@
+{% extends 'zanamain/main.html' %}
+
+{% block content %}
+
+<div class="col-md-8 mx-auto">
+    <div class="col-md">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h2 class="card-title c">Modificar La Orden {{order.id}}</h2>
+                <h5 class="card-title c">ESTA FORMA NO ACTUALIZA CANTIDAD DE PRODUCTOS EN db</h5>
+            </div>
+            <div class="card-body c">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{form}}
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-5 mx-auto">
+                            <button class="btn btn-success btn-sm btn-block" onclick="goBack()">Regresar</button>
+                        </div>
+                        <div class="col-md-5 mx-auto">
+                            <input class="btn btn-danger btn-sm btn-block" type="submit" value="Actualizar"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card-body">
+                <table class="table table-sm">
+                    <tr>
+                    <strong>
+                        <th>Orden</th>
+                        <th>transaction_id</th>
+                        <th>Cliente</th>
+                        <th>Tel</th>
+                        <th>Estado</th>
+                        <th>Fecha</th>
+                    </strong>
+                    </tr>
+                    <tr>
+                        <td>{{order.id}}</td>
+                        <td>{{order.transaction_id}}</td>
+                        <td>{{order.customer}}</td>
+                        <td>{{order.customer.phoneNum}}</td>
+                        <td>{{order.status}}</td>
+                        <td>{{order.date_created}}</td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th>Dirección</th>
+                        <th>barrio</th>
+                        <th>Ciudad / Vereda</th>
+                        <th>Departamento</th>
+                        <th>País</th>
+                        <th>Código Postal</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>{{order.address}}</td>
+                        <td>{{order.barrio}}</td>
+                        <td>{{order.city}}</td>
+                        <td>{{order.state}}</td>
+                        <td>{{order.country}}</td>
+                        <td>{{order.zipcode}}</td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th>Producto</th>
+                        <th>Cant</th>
+                        <th>Precio</th>
+                        <th>Total</th>
+                    </tr>
+                    {% for obj in order.orderitem_set.all %}
+                        <tr>
+                            <td></td>
+                            <td>{{obj.product.name}}</td>
+                            <td>{{obj.quantity}}</td>
+                            <td>${{obj.itemPrice}}</td>
+                            <td>${{obj.hist_get_total}}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td><h6>Numero de productos: </h6></td>
+                        <td><strong>{{order.get_cart_items}}</strong></td>
+                        <td><h6>Sub Total del Canasto: </h6></td>
+                        <td><strong>${{order.hist_order_subtotal}}</strong></td>
+                    </tr>
+                        <td></td>
+                        <td>Domicilio</td>
+                        <td></td>
+                        <td></td>
+                        <td>$5000</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><h6>Total del Canasto: </h6></td>
+                        <td><strong>${{order.hist_order_total}}</strong></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th>Repartidor</th>
+                        <th>cc</th>
+                        <th>Teléfono</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>{{order.repartidor.name}}</td>
+                        <td>{{order.repartidor.cedulaId}}</td>
+                        <td>{{order.repartidor.phoneNum}}</td>
+                    </tr>
+                    <tr>
+                        <th>*</th>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function goBack() {
+    window.history.back();
+    }
+</script>
+
+{% endblock content %}

@@ -1,0 +1,116 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+{% block content %}
+
+<br>
+<div class="col-md-12 mx-auto">
+    <div class="row">
+        <div class="col-md-2 ">
+            <div class="card card-body">
+                <a class="btn btn-success" href="">Crear Pedido</a>
+            </div>
+            <hr class="hr">
+            <h3 class="card-title titelall c">Inventarios</h3>
+                <ul class="list-group mx-auto">
+                    <li class="list-group categall c"><a class="txtcat" href="#Agotados">Productos Agotados</a></li>
+                    <li class="list-group categall c"><a class="txtcat" href="#menor3">Cant menor de 3</a></li>
+                    <li class="list-group categall c"><a class="txtcat" href="#menor5">Cant menor de 5</a></li>
+                </ul>
+            <hr class="hr">
+        </div>
+
+        <br>
+
+        <div class="col-md-10 mx-auto">
+            <div class="card card-body mt-2">
+                <h1 class="col-md-8 mx-auto c">Inventario Critico de No Perecederos</h1>
+                <h6 class="col-md-8 mx-auto c">Productos perecederos no entran en Inventarios</h6>
+            </div>
+
+            <a id="Agotados"></a>
+            <h5 class="card-title mt-4 subtitelall">Productos Agotados</h5>
+            <div class="card card-body">
+                <table class="table table-sm">
+                    <tr>
+                    <strong>
+                        <th>Producto</th>
+                        <th>Presentación</th>
+                        <th>Costo</th>
+                        <th>Stock</th>
+                        <th>Proyecto</th>
+                    </strong>
+                    </tr>
+                    {% for product in productAproved %}
+                        {% if product.cantidad < 1 %}
+                            <tr>
+                                <td>{{product.name}}</td>
+                                <td>{{product.presenta}}</td>
+                                <td>{{product.costo}}</td>
+                                <td>{{product.cantidad}}</td>
+                                <td>{{product.project}}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+
+            <a id="menor3"></a>
+            <h5 class="card-title mt-4 subtitelall">Productos Menos de 3</h5>
+            <div class="card card-body">
+                <table class="table table-sm">
+                    <tr>
+                    <strong>
+                        <th>Producto</th>
+                        <th>Presentación</th>
+                        <th>Costo</th>
+                        <th>Stock</th>
+                        <th>Proyecto</th>
+                    </strong>
+                    </tr>
+                    {% for product in productAproved %}
+                        {% if product.cantidad <= 3 and product.cantidad > 0 %}
+                            <tr>
+                                <td>{{product.name}}</td>
+                                <td>{{product.presenta}}</td>
+                                <td>{{product.costo}}</td>
+                                <td>{{product.cantidad}}</td>
+                                <td>{{product.project}}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+
+            <a id="menor5"></a>
+            <h5 class="card-title mt-4 subtitelall">Productos Menos de 5</h5>
+            <div class="card card-body">
+                <table class="table table-sm">
+                    <tr>
+                    <strong>
+                        <th>Producto</th>
+                        <th>Presentación</th>
+                        <th>Costo</th>
+                        <th>Stock</th>
+                        <th>Proyecto</th>
+                    </strong>
+                    </tr>
+                    {% for product in productAproved %}
+                        {% if product.cantidad <= 5 and product.cantidad > 3 %}
+                            <tr>
+                                <td>{{product.name}}</td>
+                                <td>{{product.presenta}}</td>
+                                <td>{{product.costo}}</td>
+                                <td>{{product.cantidad}}</td>
+                                <td>{{product.project}}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+
+            <br>
+        </div> 
+    </div>
+</div>
+
+{% endblock content %}

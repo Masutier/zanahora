@@ -1,0 +1,19 @@
+{% load static %}
+
+<div class="container-fluid">
+    <div class="col-md-12 mx-auto">
+    <h5 class="c">Grupo Natural</h5>
+
+        <ul  class="list-group ">
+            {% for item in natural %}
+            <li class="list-group pl-3">
+                <div class="row">
+                    <img class="expimg" src="{{ item.icon.url }}" alt="">
+                    <p class="pl-2">{{ item.title }}</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        
+    </div>    
+</div>

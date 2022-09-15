@@ -1,0 +1,40 @@
+{% extends 'zanamain/main.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="col-md-12">
+    <div class="row">
+
+        <div class="col-md-10 mx-auto ">
+        <h1 class="col-md-8 pt-4 mx-auto c">Lista de Productos Por Categoría</h1>
+            <div class="col-md-10 mx-auto">
+                <div class="row">
+                    <div class="mr-auto"><h2>{{obj}}</h2></div>
+                    <div class="mt-2 pt-1">Productos en esta Categoría {{totalProducts}}</div>
+                </div>
+            </div>
+            <div class="col-md-10 mx-auto">
+                <div class='row'>
+                    {% for product in products %}
+                        {% include 'products/partials/product_card.html' with instance=product %} 
+                    {% endfor %}
+                </div>
+                <div class="col-md-8 mx-auto mt-3">
+                    {% if totalProducts > 12 %}
+                        {% include 'partials/pagination.html' %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <br>
+        </div>
+
+        <div class="col-md-2 mt-5">
+            {% include 'zanamain/partials/side_menu.html' %}
+        </div>
+        
+    </div>
+</div>
+
+{% endblock %}

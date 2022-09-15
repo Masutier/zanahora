@@ -1,0 +1,41 @@
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Pycharm
+.idea
+
+# Django #
+*.log
+*.pot
+*.pyc
+_pycache_
+__pycache__
+
+# Distribution / packaging
+.Python build/
+
+# Visual Studio Code #
+vscode/*
+.vscode/*
+.vscode
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history
+
+# Other
+.DS_Store
+
+# db
+
+migrations/*
+
+media/media/Movies
+media/media/TV Shows
