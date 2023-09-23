@@ -2,8 +2,9 @@ import os
 import json
 from pathlib import Path
 
-with open('/etc/zanahora.json') as config_file:
+with open('/home/gabriel/prog/json_config/zanahora.json') as config_file:
     config = json.load(config_file)
+
 from urllib.parse import quote_plus
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -12,7 +13,7 @@ SECRET_KEY = config['SECRET_KEY']
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "zanahora.co", "www.zanahora.co", "https://recarga.nequi.com.co/bdigitalpsl/#!/"]
+ALLOWED_HOSTS = ["localhost", '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -92,13 +93,9 @@ EMAIL_HOST_USER = config['EMAIL_USER']
 EMAIL_HOST_PASSWORD = config['EMAIL_PASSWORD']
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'America/Bogota'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 # PRODUCTION
